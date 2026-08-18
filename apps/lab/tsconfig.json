@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2023", "useDefineForClassFields": true, "module": "ESNext",
+    "moduleResolution": "Bundler", "strict": true, "jsx": "preserve",
+    "resolveJsonModule": true, "isolatedModules": true, "verbatimModuleSyntax": true,
+    "lib": ["ES2023", "DOM", "DOM.Iterable"], "types": ["vite/client"],
+    "paths": {
+      "@concurrency-lab/concurrency-core": ["../../packages/concurrency-core/src/index.ts"],
+      "@concurrency-lab/scenario-engine": ["../../packages/scenario-engine/src/index.ts"],
+      "@concurrency-lab/timeline": ["../../packages/timeline/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue"]
+}

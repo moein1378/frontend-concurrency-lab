@@ -1,0 +1,9 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/timeline" },
+    { "path": "packages/concurrency-core" },
+    { "path": "packages/scenario-engine" },
+    { "path": "apps/lab" }
+  ]
+}

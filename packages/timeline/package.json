@@ -1,0 +1,9 @@
+{
+  "name": "@concurrency-lab/timeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "sideEffects": false,
+  "devDependencies": { "typescript": "5.9.3" }
+}
