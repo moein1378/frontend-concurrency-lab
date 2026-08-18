@@ -1,6 +1,6 @@
 ---
 generated_at: 2026-08-18T18:46:18.245Z
-verified_commit: null
+verified_commit: 86578170bba5bdb75170995d09091bdd43c352cb
 fingerprint: 829612c29bb45bf8c85f7d14afe310bd6dd36e3218df300eafd889989810a3a1
 repo:
   type: monorepo
@@ -70,18 +70,17 @@ constraints:
     evidence: apps/lab/src/app/App.vue; apps/lab/src/styles/main.css; README.md
     confidence: high
   - statement: Phase 1 intentionally exposes the broken stale-search variant; corrected freshness/cancellation behavior remains Phase 2 scope.
-    evidence: README.md; agent/TASK-BRIEF.md; packages/scenario-engine/src/application/run-broken-search-race.ts
+    evidence: README.md; docs/project/phase-01-brief.md; packages/scenario-engine/src/application/run-broken-search-race.ts
     confidence: high
   - statement: Keep future framework-independent packages under packages/ and free of Vue imports.
     evidence: docs/architecture/module-boundaries.md
     confidence: high
-unknowns:
-  - The repository is not initialized as a Git worktree, so no commit can be recorded.
+unknowns: []
 ---
 
 # Project context
 
-This is a pnpm workspace for a browser-based frontend concurrency teaching lab. Phase 1 provides an accessible Scenario Catalog, a deterministic stale-search Scenario Detail, a structured event timeline, and framework-independent clock, scenario, and concurrency packages. Treat `agent/TASK-BRIEF.md` as phase scope, while current source and configuration remain authoritative when documentation differs.
+This is a pnpm workspace for a browser-based frontend concurrency teaching lab. Phase 1 provides an accessible Scenario Catalog, a deterministic stale-search Scenario Detail, a structured event timeline, and framework-independent clock, scenario, and concurrency packages. Treat `docs/project/phase-01-brief.md` as completed Phase 1 scope, while current source and configuration remain authoritative when documentation differs.
 
 ## Freshness evidence
 
