@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const comparisonUrl = `${import.meta.env.BASE_URL}scenario/search-race/compare`
+</script>
+
 <template>
   <section class="catalog-hero">
     <p class="eyebrow">Interactive concurrency failures</p>
@@ -19,7 +23,7 @@
         <div><dt>Protected invariant</dt><dd>Latest query wins</dd></div>
         <div><dt>Runtime</dt><dd>Deterministic fixture</dd></div>
       </dl>
-      <a class="primary-action" href="/scenario/search-race/compare">Compare implementations <span aria-hidden="true">→</span></a>
+      <a class="primary-action" :href="comparisonUrl">Compare implementations <span aria-hidden="true">→</span></a>
     </article>
   </section>
 </template>

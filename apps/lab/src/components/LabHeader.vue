@@ -2,6 +2,9 @@
 import { onMounted, ref } from 'vue'
 
 const dark = ref(false)
+const baseUrl = import.meta.env.BASE_URL
+const catalogUrl = `${baseUrl}scenarios`
+const faviconUrl = `${baseUrl}favicon.svg`
 onMounted(() => { dark.value = document.documentElement.dataset.theme === 'dark' })
 
 function toggleTheme() {
@@ -12,12 +15,12 @@ function toggleTheme() {
 
 <template>
   <header class="site-header">
-    <a class="brand" href="/scenarios" aria-label="Frontend Concurrency Lab scenario catalog">
-      <img src="/favicon.svg" width="34" height="34" alt="" />
+    <a class="brand" :href="catalogUrl" aria-label="Frontend Concurrency Lab scenario catalog">
+      <img :src="faviconUrl" width="34" height="34" alt="" />
       <span>Concurrency <strong>Lab</strong></span>
     </a>
     <nav aria-label="Primary navigation">
-      <a href="/scenarios">Scenarios</a>
+      <a :href="catalogUrl">Scenarios</a>
       <span aria-disabled="true">Primitives · soon</span>
     </nav>
     <div class="header-actions">

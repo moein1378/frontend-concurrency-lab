@@ -2,4 +2,7 @@ import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
 
-export default defineConfig({ plugins: [vue(), tailwindcss()], base: './' })
+const repositoryName = process.env.GITHUB_REPOSITORY?.split('/')[1]
+const base = repositoryName ? `/${repositoryName}/` : '/'
+
+export default defineConfig({ plugins: [vue(), tailwindcss()], base })

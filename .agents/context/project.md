@@ -1,7 +1,7 @@
 ---
-generated_at: 2026-08-20T22:08:00+03:30
-verified_commit: 70b1e39d47ae305bff2805fdf180e7adeede33de
-fingerprint: cecf006e4cc700991da275bde8f080eb7b451957a4d4431fc66ebc5c88d6680b
+generated_at: 2026-08-20T22:28:00+03:30
+verified_commit: 6abac5462f25339de4e55b16564b6de89da660cc
+fingerprint: 44b919387d54439f3629be7a0fc8ac6aea87fc47a9a5dd49e113e272c95fd36b
 repo:
   type: monorepo
   package_manager: pnpm@11.22.0
@@ -37,7 +37,7 @@ architecture:
   data:
     - Repository-owned deterministic fixtures only; VITE_DEMO_SEED has a safe public default.
   routing:
-    - Lightweight pathname composition for /scenarios and /scenario/search-race/{broken,compare}; no router dependency.
+    - Lightweight pathname composition for /scenarios and /scenario/search-race/{broken,compare}; BASE_URL-prefixed links and a Pages 404 shell support repository-subpath hosting without a router dependency.
   package_boundaries:
     - apps/lab consumes packages only through their public entry points.
     - Framework-independent packages under packages/ must not import Vue or application paths.
@@ -59,6 +59,7 @@ quality:
     - Playwright 1.62.1 uses installed stable Chrome by default and supports a PLAYWRIGHT_BROWSER_CHANNEL=bundled local override.
   ci:
     - .github/workflows/ci.yml runs the frozen-install verify gate and uploads apps/lab/dist.
+    - .github/workflows/deploy-demo.yml publishes the deterministic demo to GitHub Pages only after CI succeeds on main.
 constraints:
   - statement: Use strict TypeScript and the existing Vue 3 Composition API conventions.
     evidence: apps/lab/tsconfig.json; apps/lab/src/components/LabHeader.vue
@@ -93,4 +94,4 @@ The fingerprint follows `.agents/scripts/project-fingerprint.mjs` and covers the
 - `playwright.config.ts`: `703f64d8a22f2219ea8163601a82adde2c678c4cbb923f5c16eaba2ab58e65b2`
 - `tsconfig.json`: `58e531ebfe1669592922decf3c0198acfefdd29ba0cb22591ea3017a384dce3e`
 
-Because framework dependencies and Vite configuration live under `apps/lab`, refresh this context whenever `apps/lab/package.json`, `apps/lab/vite.config.ts`, or the documented architecture boundaries change, even if the root fingerprint still reports fresh.
+Because framework dependencies and Pages base-path behavior live under `apps/lab`, refresh this context whenever `apps/lab/package.json` (`4d6231e16659fd00c1a2ebe9bdda11f710ed10c5f28e89cc877e770f950f3bb5`), `apps/lab/vite.config.ts` (`dbdcafe324dfb98ca8378dc13ea74c2852ecf449f06321622410728f568d624f`), or the documented architecture boundaries change, even if the root fingerprint still reports fresh.
