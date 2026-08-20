@@ -1,10 +1,13 @@
 {
   "name": "@concurrency-lab/scenario-engine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "exports": { ".": "./src/index.ts" },
   "sideEffects": false,
-  "dependencies": { "@concurrency-lab/timeline": "workspace:*" },
+  "dependencies": {
+    "@concurrency-lab/concurrency-core": "workspace:*",
+    "@concurrency-lab/timeline": "workspace:*"
+  },
   "devDependencies": { "typescript": "5.9.3" }
 }

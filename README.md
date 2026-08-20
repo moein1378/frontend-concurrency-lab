@@ -4,7 +4,7 @@
   <p><strong>Base project for an interactive browser-concurrency teaching lab.</strong></p>
 </div>
 
-> Status: **v0.1.0 / Phase 1** — deterministic harness and intentionally broken stale-search scenario.
+> Status: **v0.2.0 / Phase 2** — synchronized broken-vs-fixed cancellation and freshness comparison.
 
 ## Included
 
@@ -14,7 +14,9 @@
 - Responsive, keyboard-accessible Scenario Catalog and Scenario Detail.
 - Deterministic clock, seeded latency generator, monotonic event log, and replayable fixture mode.
 - An intentionally broken search race that makes the `latest-query-wins` invariant fail visibly.
-- Framework-independent latest-wins, single-flight, and mutex primitives for later fixed scenarios.
+- Fixed cancellation and sequence-token freshness strategies replayed against the same seed and timings.
+- Structured request, abort, response, commit, discard, and invariant event evidence.
+- Framework-independent latest-wins, single-flight, mutex, and semaphore primitives.
 - Unit, integration, and deterministic Playwright reviewer coverage.
 - Repository-owned logo and favicon assets.
 - Lint, typecheck, and production-build verification.
@@ -29,7 +31,7 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open `http://localhost:4173/scenarios`, choose **Stale search response**, and run the broken search. The older `ca` response arrives last and overwrites the expected `cat` results.
+Open `http://localhost:4173/scenarios`, choose **Stale search response**, and run the synchronized comparison. The broken lane commits stale `ca` results while the selected cancellation or freshness strategy preserves `cat` on the fixed lane.
 
 ## Verify
 
@@ -50,6 +52,6 @@ tests/             Cross-package integration and Playwright journeys
 
 ## Known limitations
 
-- Phase 1 deliberately ships only the broken variant. Cancellation and freshness protection belong to Phase 2.
 - The simulator is local and deterministic; it does not make real network requests.
-- Phone mode provides a single-column experiment and timeline rather than the future multi-panel comparison surface.
+- Cancellation is modeled through the browser `AbortController`/`AbortSignal` contract on virtual time; no transport adapter is active yet.
+- Phone mode presents comparison lanes and timelines sequentially in a single column.

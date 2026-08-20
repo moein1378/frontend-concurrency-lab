@@ -15,4 +15,11 @@ describe('deterministic timeline', () => {
     const clock = new DeterministicClock(10)
     expect(() => clock.advanceTo(9)).toThrow('cannot move backwards')
   })
+
+  it('records cancellation and stale-discard events as structured kinds', () => {
+    const log = new EventLog(new DeterministicClock())
+    log.record('abort', 'superseded', { requestId: 'request-1' })
+    log.record('discard', 'stale response ignored', { requestId: 'request-1' })
+    expect(log.all().map((event) => event.kind)).toEqual(['abort', 'discard'])
+  })
 })

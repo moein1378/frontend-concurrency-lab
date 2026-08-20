@@ -1,3 +1,4 @@
-export { LatestWinsCoordinator } from './application/latest-wins'
+export { LatestWinsCoordinator, type LatestOperation } from './application/latest-wins'
 export { Mutex } from './application/mutex'
+export { Semaphore } from './application/semaphore'
 export { SingleFlightRegistry } from './application/single-flight'

@@ -14,12 +14,12 @@ pnpm seed
 pnpm dev
 ```
 
-Visit `http://localhost:4173/scenarios`. Open the stale-search scenario, keep **Older “ca” arrives last**, and select **Run broken search**. The invariant panel should report expected `cat` and committed `ca`, with seven ordered timeline events.
+Visit `http://localhost:4173/scenarios`. Open the stale-search comparison, keep **Older “ca” arrives last**, and select **Run synchronized comparison**. The broken lane should report expected `cat` and committed `ca`; the fixed lane should commit `cat`. Switch between **Cancel superseded** to inspect an abort event and **Discard stale** to inspect a discard event.
 
 ## Recovery
 
 - Port occupied: run `pnpm --filter @concurrency-lab/app dev --port 4174`.
 - Dependency mismatch: confirm `node --version` is 24.x, then rerun the frozen install.
-- Reset: run `pnpm reset`; Phase 1 has no persistent browser or server data.
+- Reset: run `pnpm reset`; Phase 2 has no persistent browser or server data.
 - Offline: the running app needs no network. A first dependency install still needs npm registry access.
-- Browser setup: Playwright uses the installed stable Chrome channel; install Chrome before running `pnpm test:e2e`.
+- Browser setup: Playwright uses the installed stable Chrome channel by default. Without system Chrome, run `pnpm exec playwright install chromium`, then verify with `PLAYWRIGHT_BROWSER_CHANNEL=bundled pnpm test:e2e`.

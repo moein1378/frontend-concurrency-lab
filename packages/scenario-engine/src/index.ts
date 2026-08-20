@@ -1,3 +1,5 @@
 export { runBrokenSearchRace, type BrokenSearchOptions } from './application/run-broken-search-race'
+export { runFixedSearchRace, type FixedSearchOptions } from './application/run-fixed-search-race'
+export { runSearchRaceComparison, type SearchRaceComparisonOptions } from './application/run-search-race-comparison'
 export { SeededLatencyGenerator } from './domain/seeded-latency'
-export type { SearchRaceRun, SearchRequest, SearchResult } from './domain/scenario'
+export type { SearchProtectionStrategy, SearchRaceComparison, SearchRaceRun, SearchRequest, SearchResult } from './domain/scenario'

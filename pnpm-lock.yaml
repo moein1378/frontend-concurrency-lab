@@ -66,6 +66,9 @@ importers:
 
   packages/scenario-engine:
     dependencies:
+      '@concurrency-lab/concurrency-core':
+        specifier: workspace:*
+        version: link:../concurrency-core
       '@concurrency-lab/timeline':
         specifier: workspace:*
         version: link:../timeline

@@ -21,5 +21,5 @@ onBeforeUnmount(() => window.removeEventListener('popstate', syncPath))
     <SearchRacePage v-if="path.includes('/scenario/search-race')" />
     <ScenarioCatalogPage v-else />
   </main>
-  <footer><span>Frontend Concurrency Lab</span><span>Fixture mode · v0.1.0</span></footer>
+  <footer><span>Frontend Concurrency Lab</span><span>Fixture mode · v0.2.0</span></footer>
 </template>

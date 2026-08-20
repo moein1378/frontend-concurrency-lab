@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
+const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL === 'bundled' ? undefined : 'chrome'
+
 export default defineConfig({
   testDir: './tests/e2e',
   testMatch: '**/*.e2e.ts',
@@ -12,5 +14,5 @@ export default defineConfig({
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: 'chrome' } }],
+  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: browserChannel } }],
 })

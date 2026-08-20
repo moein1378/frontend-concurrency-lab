@@ -12,6 +12,8 @@ export interface SearchResult {
 
 export interface SearchRaceRun {
   seed: string
+  variant: 'broken' | 'fixed'
+  protection: 'none' | SearchProtectionStrategy
   requests: readonly SearchRequest[]
   committed: SearchResult
   expected: SearchResult
@@ -21,4 +23,13 @@ export interface SearchRaceRun {
     passed: boolean
   }
   events: readonly import('@concurrency-lab/timeline').TimelineEvent[]
+}
+
+export type SearchProtectionStrategy = 'abort' | 'freshness'
+
+export interface SearchRaceComparison {
+  seed: string
+  strategy: SearchProtectionStrategy
+  broken: SearchRaceRun
+  fixed: SearchRaceRun
 }

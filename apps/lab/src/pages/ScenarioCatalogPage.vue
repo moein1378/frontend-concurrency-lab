@@ -7,11 +7,11 @@
 
   <section class="catalog" aria-labelledby="catalog-title">
     <div class="section-heading">
-      <div><p class="kicker">Phase 1</p><h2 id="catalog-title">Scenario catalog</h2></div>
+      <div><p class="kicker">Phase 2</p><h2 id="catalog-title">Scenario catalog</h2></div>
       <span class="count-badge">1 available</span>
     </div>
     <article class="scenario-card">
-      <div class="card-topline"><span class="failure-badge">✕ Broken by design</span><span class="scenario-number">01</span></div>
+      <div class="card-topline"><span class="comparison-badge">⇄ Broken + fixed</span><span class="scenario-number">01</span></div>
       <h3>Stale search response</h3>
       <p>A slower request for an older query arrives last and silently replaces the results the user actually asked for.</p>
       <dl>
@@ -19,7 +19,7 @@
         <div><dt>Protected invariant</dt><dd>Latest query wins</dd></div>
         <div><dt>Runtime</dt><dd>Deterministic fixture</dd></div>
       </dl>
-      <a class="primary-action" href="/scenario/search-race/broken">Open broken scenario <span aria-hidden="true">→</span></a>
+      <a class="primary-action" href="/scenario/search-race/compare">Compare implementations <span aria-hidden="true">→</span></a>
     </article>
   </section>
 </template>

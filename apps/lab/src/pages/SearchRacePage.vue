@@ -7,9 +7,9 @@ import SearchRaceLab from '../modules/search-race/SearchRaceLab.vue'
     <a class="back-link" href="/scenarios">← Scenario catalog</a>
     <div class="detail-title">
       <div><p class="eyebrow">Scenario 01 · Race condition</p><h1>Stale search response</h1></div>
-      <span class="failure-badge">✕ Intentionally broken</span>
+      <span class="comparison-badge">⇄ Broken vs fixed</span>
     </div>
-    <p>Watch a valid response become stale while it is in flight—then arrive late enough to overwrite the newest search.</p>
+    <p>Replay identical request timing on both lanes, then inspect how cancellation or a freshness guard protects the newest search.</p>
   </section>
   <SearchRaceLab />
 </template>
