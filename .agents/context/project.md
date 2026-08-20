@@ -1,7 +1,7 @@
 ---
-generated_at: 2026-08-20T22:28:00+03:30
-verified_commit: 6abac5462f25339de4e55b16564b6de89da660cc
-fingerprint: 44b919387d54439f3629be7a0fc8ac6aea87fc47a9a5dd49e113e272c95fd36b
+generated_at: 2026-08-20T22:47:00+03:30
+verified_commit: b40fc8ed66c7d0e2001b3e308cfb0554eff0250e
+fingerprint: 7cec53c0dd6e8419ecb9a0bb216780d8dfdb18fe8250fe14839d5c47bec65ee0
 repo:
   type: monorepo
   package_manager: pnpm@11.22.0
@@ -94,4 +94,4 @@ The fingerprint follows `.agents/scripts/project-fingerprint.mjs` and covers the
 - `playwright.config.ts`: `703f64d8a22f2219ea8163601a82adde2c678c4cbb923f5c16eaba2ab58e65b2`
 - `tsconfig.json`: `58e531ebfe1669592922decf3c0198acfefdd29ba0cb22591ea3017a384dce3e`
 
-Because framework dependencies and Pages base-path behavior live under `apps/lab`, refresh this context whenever `apps/lab/package.json` (`4d6231e16659fd00c1a2ebe9bdda11f710ed10c5f28e89cc877e770f950f3bb5`), `apps/lab/vite.config.ts` (`dbdcafe324dfb98ca8378dc13ea74c2852ecf449f06321622410728f568d624f`), or the documented architecture boundaries change, even if the root fingerprint still reports fresh.
+Because framework dependencies and Pages base-path behavior live under `apps/lab`, refresh this context whenever `apps/lab/package.json` (`4d6231e16659fd00c1a2ebe9bdda11f710ed10c5f28e89cc877e770f950f3bb5`), `apps/lab/vite.config.ts` (`10789ca3bf6a77e05ce1c644519a0975e21cb76f6f51c769350e8c34bec39511`), or the documented architecture boundaries change, even if the root fingerprint still reports fresh.

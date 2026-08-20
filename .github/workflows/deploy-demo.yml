@@ -32,6 +32,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:demo
+        env:
+          VITE_BASE_PATH: /frontend-concurrency-lab/
       - run: cp apps/lab/dist/index.html apps/lab/dist/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
