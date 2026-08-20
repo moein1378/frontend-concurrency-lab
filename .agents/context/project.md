@@ -1,13 +1,15 @@
 ---
-generated_at: 2026-08-20T22:47:00+03:30
-verified_commit: b40fc8ed66c7d0e2001b3e308cfb0554eff0250e
-fingerprint: 7cec53c0dd6e8419ecb9a0bb216780d8dfdb18fe8250fe14839d5c47bec65ee0
+generated_at: 2026-08-20T20:18:57.799Z
+verified_commit: 7620a6a9f8f30fc2ac556faa95fb7e3ce8cec089
+fingerprint: 7b81d927fed69e6d2717ecc0dded4d061b5186808b57cf3074b1b14278e3e328
 repo:
   type: monorepo
   package_manager: pnpm@11.22.0
   node: ">=24 <25"
 framework:
   vue: 3.5.41
+  vue_i18n: 11.1.12
+  driver_js: 1.8.0
   nuxt: null
   vite: 8.2.1
   typescript: 5.9.3
@@ -32,8 +34,12 @@ architecture:
     - apps/lab/src/app/App.vue
   components:
     - apps/lab/src/components/LabHeader.vue
+  localization:
+    - apps/lab/src/i18n owns English/Persian messages, locale persistence, and html lang/dir synchronization.
+  tours:
+    - apps/lab/src/tours owns Driver.js configuration; catalog and scenario pages own their localized steps.
   state:
-    - Local Vue refs compose synchronized comparison controls and results; domain transitions live in packages.
+    - Local Vue refs compose synchronized comparison controls, results, locale, theme, and optional tours; domain transitions live in packages.
   data:
     - Repository-owned deterministic fixtures only; VITE_DEMO_SEED has a safe public default.
   routing:
@@ -57,6 +63,7 @@ quality:
   tests:
     - Vitest 4.1.10 for colocated unit and root integration tests.
     - Playwright 1.62.1 uses installed stable Chrome by default and supports a PLAYWRIGHT_BROWSER_CHANNEL=bundled local override.
+    - Translation-contract tests require matching non-empty English/Persian message keys; E2E covers RTL and tours.
   ci:
     - .github/workflows/ci.yml runs the frozen-install verify gate and uploads apps/lab/dist.
     - .github/workflows/deploy-demo.yml publishes the deterministic demo to GitHub Pages only after CI succeeds on main.
@@ -69,6 +76,9 @@ constraints:
     confidence: high
   - statement: Preserve keyboard focus, skip navigation, reduced-motion handling, and responsive behavior.
     evidence: apps/lab/src/app/App.vue; apps/lab/src/styles/main.css; README.md
+    confidence: high
+  - statement: Every new visitor-facing string and guided-tour step must ship in English and Persian, with technical values isolated appropriately inside RTL layout.
+    evidence: docs/adr/0001-bilingual-guided-teaching-ui.md; apps/lab/src/i18n/messages.ts; tests/integration/i18n-messages.test.ts
     confidence: high
   - statement: Phase 2 compares the intentionally broken stale-search run with AbortSignal cancellation or a latest-wins sequence-token guard using identical deterministic inputs.
     evidence: README.md; docs/project/phase-02-brief.md; packages/scenario-engine/src/application/run-search-race-comparison.ts
@@ -88,10 +98,10 @@ This is a pnpm workspace for a browser-based frontend concurrency teaching lab. 
 The fingerprint follows `.agents/scripts/project-fingerprint.mjs` and covers these root files:
 
 - `package.json`: `ba78efee5560d2a82ae4bca0297a6e3c92262e016366b01c035e0eb9ff35450b`
-- `pnpm-lock.yaml`: `d79ac6ada507e856a4e5eb788d2cf9f393c56c6717474f0844078b402cc444bb`
+- `pnpm-lock.yaml`: `1e7a3b3277dd3b92e5e5f339882e750518e592e9a262a31cdc83fac3bbd3c7e0`
 - `pnpm-workspace.yaml`: `d5654359aef3bbdfd55cc5fab820ed64b84390da09d79f7db7a0eab1056b3743`
 - `vitest.config.ts`: `6a65916fc8442d8fabb5d636c3804b0465ada87a350af1fe0204ea29b4389674`
 - `playwright.config.ts`: `703f64d8a22f2219ea8163601a82adde2c678c4cbb923f5c16eaba2ab58e65b2`
 - `tsconfig.json`: `58e531ebfe1669592922decf3c0198acfefdd29ba0cb22591ea3017a384dce3e`
 
-Because framework dependencies and Pages base-path behavior live under `apps/lab`, refresh this context whenever `apps/lab/package.json` (`4d6231e16659fd00c1a2ebe9bdda11f710ed10c5f28e89cc877e770f950f3bb5`), `apps/lab/vite.config.ts` (`10789ca3bf6a77e05ce1c644519a0975e21cb76f6f51c769350e8c34bec39511`), or the documented architecture boundaries change, even if the root fingerprint still reports fresh.
+Because framework dependencies, localization, tours, and Pages base-path behavior live under `apps/lab`, refresh this context whenever `apps/lab/package.json` (`f2b0d338c94645ac4f92e8964293cd01a02e25c31aae1944bc399244dbd91407`), `apps/lab/vite.config.ts` (`10789ca3bf6a77e05ce1c644519a0975e21cb76f6f51c769350e8c34bec39511`), message contracts, or documented architecture boundaries change, even if the root fingerprint still reports fresh.

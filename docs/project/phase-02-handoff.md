@@ -7,6 +7,9 @@
 - Extended the event model with abort and discard evidence.
 - Added the semaphore public primitive and strengthened latest-wins tests while retaining single-flight and mutex responsibilities.
 - Fixed CI setup ordering so pnpm exists before setup-node initializes its pnpm cache.
+- Added English/Persian localization, persistent language selection, full-document RTL/LTR direction, and localized dynamic timeline evidence.
+- Expanded the catalog and stale-search scenario with learning outcomes, prerequisite and mental-model guidance, glossary, invariant explanation, trade-offs, decision guidance, experience-level takeaways, and limitations.
+- Added optional localized Driver.js tours for both the catalog and scenario workflow.
 
 ## Decisions
 

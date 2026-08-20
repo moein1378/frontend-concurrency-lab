@@ -14,6 +14,8 @@
 | --- | --- | --- |
 | **v0.2.0 · Phase 2** | Seeded local fixture; no network | The visible results belong to the latest issued query |
 
+The complete interface and guided tours are available in **English and Persian (فارسی)**. Changing language updates content, accessibility metadata, and the full LTR/RTL layout immediately; the preference is retained in the browser.
+
 ## The failure in one minute
 
 A user searches for `ca`, then quickly searches for `cat`. The newer `cat` response arrives first, but the older `ca` response arrives last and overwrites the visible results. Both responses are individually valid; committing them in completion order violates **latest query wins**.
@@ -42,6 +44,8 @@ The [broken runner](./packages/scenario-engine/src/application/run-broken-search
 | final | **Invariant violated** | **Invariant held** |
 
 The UI renders request, abort, response, commit, discard, and invariant events as structured text, so the evidence does not depend on color or animation.
+
+Use **Guided tour** from the header or experiment panel for a localized, step-by-step walkthrough. The scenario tour runs a deterministic comparison first, then explains controls, strategies, both outcomes, and the timeline in context.
 
 ## Correct implementations
 

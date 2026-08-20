@@ -16,6 +16,8 @@ pnpm dev
 
 Visit `http://localhost:4173/scenarios`. Open the stale-search comparison, keep **Older “ca” arrives last**, and select **Run synchronized comparison**. The broken lane should report expected `cat` and committed `ca`; the fixed lane should commit `cat`. Switch between **Cancel superseded** to inspect an abort event and **Discard stale** to inspect a discard event.
 
+Use the language selector in the header to switch between English and Persian. Confirm the root document changes to `dir="rtl"` in Persian while query, seed, timing, and sequence values remain readable left-to-right. Select **Guided tour** on either page to replay its localized walkthrough; tours are optional and may be exited with <kbd>Escape</kbd>.
+
 ## Recovery
 
 - Port occupied: run `pnpm --filter @concurrency-lab/app dev --port 4174`.
