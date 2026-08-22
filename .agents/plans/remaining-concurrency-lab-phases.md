@@ -59,7 +59,7 @@ steps:
       - Progressive browser journey exposes queued, entered, committed, released, and invariant states.
       - Phase gate passes or has an exact documented browser exception; phase commit exists.
   - id: S3
-    status: pending
+    status: completed
     purpose: Implement and commit Phase 4 bounded concurrency as a complete vertical teaching slice.
     depends_on: [S2]
     files_or_surface:

@@ -1,0 +1,1 @@
+import { expect, test } from '@playwright/test'; test('reviewer sees bounded upload pressure', async ({ page }) => { await page.goto('/scenario/bounded-concurrency/compare'); await page.getByRole('button', { name: 'Run comparison' }).click(); await expect(page.getByText('Capacity exceeded')).toBeVisible(); await expect(page.getByText('Capacity respected')).toBeVisible() })

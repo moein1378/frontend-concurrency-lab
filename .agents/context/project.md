@@ -17,7 +17,7 @@ framework:
 packages:
   - path: apps/lab
     name: "@concurrency-lab/app"
-    purpose: Client-rendered catalog and progressive broken/fixed teaching application for freshness and mutual-exclusion scenarios.
+    purpose: Client-rendered catalog and progressive broken/fixed teaching application for freshness, mutual exclusion, and bounded-concurrency scenarios.
   - path: packages/concurrency-core
     name: "@concurrency-lab/concurrency-core"
     purpose: Framework-independent coordination primitives.
@@ -88,6 +88,9 @@ constraints:
     confidence: high
   - statement: The Phase 3 mutex is FIFO, removes cancelled waiters, releases idempotently, and runExclusive always releases in finally; the teaching fixture distinguishes this local guarantee from remote exactly-once effects.
     evidence: packages/concurrency-core/src/application/mutex.ts; packages/scenario-engine/src/application/run-mutual-exclusion-comparison.ts; docs/project/phase-03-brief.md
+    confidence: high
+  - statement: The Phase 4 semaphore exposes capacity state, grants FIFO waiters, removes cancelled waits, and returns permits idempotently; deterministic upload evidence reports queue, wait, cancellation, completion, and peak-active metrics.
+    evidence: packages/concurrency-core/src/application/semaphore.ts; packages/scenario-engine/src/application/run-upload-comparison.ts; docs/project/phase-04-brief.md
     confidence: high
   - statement: Use Intro.js for guided tours and do not introduce or retain another tour library without superseding ADR 0002.
     evidence: docs/adr/0002-progressive-playback-and-introjs-tours.md; apps/lab/package.json; apps/lab/src/tours/create-tour.ts

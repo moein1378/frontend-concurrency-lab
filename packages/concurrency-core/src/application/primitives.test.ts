@@ -94,4 +94,20 @@ describe('phase 1 concurrency primitives', () => {
   it('rejects invalid semaphore capacities', () => {
     expect(() => new Semaphore(0)).toThrow('positive integer')
   })
+
+  it('grants semaphore waiters fairly and removes cancellation without leaking permits', async () => {
+    const semaphore = new Semaphore(1)
+    const first = await semaphore.acquire()
+    const controller = new AbortController()
+    const cancelled = semaphore.acquire({ signal: controller.signal })
+    const order: string[] = []
+    const second = semaphore.acquire().then((release) => { order.push('second'); release() })
+    controller.abort('upload removed')
+    await expect(cancelled).rejects.toThrow('upload removed')
+    expect(semaphore.queued).toBe(1)
+    first()
+    await second
+    expect(order).toEqual(['second'])
+    expect([semaphore.active, semaphore.available, semaphore.queued]).toEqual([0, 1, 0])
+  })
 })
