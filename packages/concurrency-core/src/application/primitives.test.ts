@@ -40,6 +40,35 @@ describe('phase 1 concurrency primitives', () => {
     expect(order).toEqual(['first:start', 'first:end', 'second'])
   })
 
+  it('releases a mutex after failure and grants queued work in FIFO order', async () => {
+    const mutex = new Mutex()
+    const order: string[] = []
+    await expect(mutex.runExclusive(async () => {
+      order.push('failed')
+      void mutex.runExclusive(() => { order.push('queued') })
+      throw new Error('operation failed')
+    })).rejects.toThrow('operation failed')
+    await Promise.resolve()
+    expect(order).toEqual(['failed', 'queued'])
+    expect(mutex.locked).toBe(false)
+  })
+
+  it('removes a cancelled mutex waiter without stranding the queue', async () => {
+    const mutex = new Mutex()
+    const release = await mutex.acquire()
+    const controller = new AbortController()
+    const cancelled = mutex.acquire({ signal: controller.signal })
+    const next = mutex.acquire()
+    expect(mutex.queued).toBe(2)
+    controller.abort('visitor cancelled')
+    await expect(cancelled).rejects.toThrow('visitor cancelled')
+    release()
+    const releaseNext = await next
+    releaseNext()
+    expect(mutex.locked).toBe(false)
+    expect(mutex.queued).toBe(0)
+  })
+
   it('bounds active work with a semaphore', async () => {
     const semaphore = new Semaphore(2)
     let active = 0

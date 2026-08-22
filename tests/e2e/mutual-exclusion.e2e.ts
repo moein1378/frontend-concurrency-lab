@@ -1,0 +1,2 @@
+import { expect, test } from '@playwright/test'
+test('reviewer reveals mutex ownership and recovery evidence', async ({ page }) => { await page.goto('/scenario/mutual-exclusion/compare'); await page.getByRole('button', { name: 'Run comparison' }).click(); const next = page.getByRole('button', { name: 'Reveal next event' }); while (await next.isVisible()) await next.click(); await expect(page.getByText('Invariant violated')).toBeVisible(); await expect(page.getByText('Invariant held')).toBeVisible(); await expect(page.getByText('Mutex released in finally')).toBeVisible() })

@@ -17,7 +17,7 @@ framework:
 packages:
   - path: apps/lab
     name: "@concurrency-lab/app"
-    purpose: Client-rendered Scenario Catalog, Scenario Detail, and Broken vs Fixed Comparison application.
+    purpose: Client-rendered catalog and progressive broken/fixed teaching application for freshness and mutual-exclusion scenarios.
   - path: packages/concurrency-core
     name: "@concurrency-lab/concurrency-core"
     purpose: Framework-independent coordination primitives.
@@ -43,7 +43,7 @@ architecture:
   data:
     - Repository-owned deterministic fixtures only; VITE_DEMO_SEED has a safe public default.
   routing:
-    - Lightweight pathname composition for /scenarios and /scenario/search-race/{broken,compare}; BASE_URL-prefixed links and a Pages 404 shell support repository-subpath hosting without a router dependency.
+    - Lightweight pathname composition for /scenarios, /scenario/search-race/{broken,compare}, and /scenario/mutual-exclusion/compare; BASE_URL-prefixed links and a Pages 404 shell support repository-subpath hosting without a router dependency.
   package_boundaries:
     - apps/lab consumes packages only through their public entry points.
     - Framework-independent packages under packages/ must not import Vue or application paths.
@@ -86,6 +86,9 @@ constraints:
   - statement: Scenario teaching surfaces must reveal deterministic events progressively; visible results update on revealed commit events and invariants remain pending until their event, with pause/resume and replay available.
     evidence: docs/adr/0002-progressive-playback-and-introjs-tours.md; apps/lab/src/modules/search-race/SearchRaceLab.vue; tests/e2e/search-race.e2e.ts
     confidence: high
+  - statement: The Phase 3 mutex is FIFO, removes cancelled waiters, releases idempotently, and runExclusive always releases in finally; the teaching fixture distinguishes this local guarantee from remote exactly-once effects.
+    evidence: packages/concurrency-core/src/application/mutex.ts; packages/scenario-engine/src/application/run-mutual-exclusion-comparison.ts; docs/project/phase-03-brief.md
+    confidence: high
   - statement: Use Intro.js for guided tours and do not introduce or retain another tour library without superseding ADR 0002.
     evidence: docs/adr/0002-progressive-playback-and-introjs-tours.md; apps/lab/package.json; apps/lab/src/tours/create-tour.ts
     confidence: high
@@ -97,7 +100,7 @@ unknowns: []
 
 # Project context
 
-This is a pnpm workspace for a browser-based frontend concurrency teaching lab. Phase 2 provides an accessible Scenario Catalog and synchronized stale-search comparison with deterministic broken, cancellation-protected, and freshness-protected runs. Structured timelines expose request, abort, response, commit, discard, and invariant events. Treat `docs/project/phase-02-brief.md` as the implemented Phase 2 scope, while current source and configuration remain authoritative when documentation differs.
+This is a pnpm workspace for a browser-based frontend concurrency teaching lab. Phase 3 provides accessible stale-search and mutual-exclusion lessons with deterministic broken/fixed comparisons. Structured timelines expose requests, ownership, queueing, outcomes, release, commits/discards, and invariant evidence. Treat the phase briefs under `docs/project/` as implemented scope, while current source and configuration remain authoritative when documentation differs.
 
 ## Freshness evidence
 

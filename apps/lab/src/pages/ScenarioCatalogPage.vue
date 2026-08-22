@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { startGuidedTour } from '../tours/create-tour'
 
 const comparisonUrl = `${import.meta.env.BASE_URL}scenario/search-race/compare`
+const mutexUrl = `${import.meta.env.BASE_URL}scenario/mutual-exclusion/compare`
 const { locale, t } = useI18n()
 
 const learningLevels = [
@@ -71,6 +72,7 @@ onBeforeUnmount(() => window.removeEventListener('lab:start-tour', startTour))
         <a class="primary-action" data-tour="scenario-action" :href="comparisonUrl">{{ t('catalog.action') }} <span aria-hidden="true">→</span></a>
       </div>
     </article>
+    <article class="scenario-card"><div class="card-topline"><span class="comparison-badge">⇄ {{ t('catalog.compareBadge') }}</span><span class="scenario-number">02</span></div><h3>{{ locale === 'fa' ? 'ارسال دوباره و mutex' : 'Double submit and mutex' }}</h3><p>{{ locale === 'fa' ? 'دو mutation هم‌پوشان را ببینید و آزادشدن مالکیت صفی پس از موفقیت، خطا، پایان مهلت یا لغو را دنبال کنید.' : 'See overlapping mutations create duplicate effects, then follow FIFO ownership release after success, failure, timeout, or cancellation.' }}</p><dl><div><dt>{{ t('catalog.failureType') }}</dt><dd>{{ locale === 'fa' ? 'اثر تکراری' : 'Duplicate effect' }}</dd></div><div><dt>{{ t('catalog.invariant') }}</dt><dd>{{ locale === 'fa' ? 'یک مالک بخش بحرانی' : 'One critical-section owner' }}</dd></div></dl><div class="card-action-row"><span class="duration-label">◷ 8–12 min</span><a class="primary-action" :href="mutexUrl">{{ t('catalog.action') }} <span aria-hidden="true">→</span></a></div></article>
   </section>
 
   <section class="learning-levels" aria-labelledby="levels-title">

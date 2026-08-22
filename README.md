@@ -12,13 +12,15 @@
 
 | Release | Reproducibility | Protected invariant |
 | --- | --- | --- |
-| **v0.2.0 · Phase 2** | Seeded local fixture; no network | The visible results belong to the latest issued query |
+| **v0.3.0 · Phase 3** | Seeded local fixture; no network | Fresh search wins; one mutation owns a critical section and creates at most one effect |
 
 The complete interface and guided tours are available in **English and Persian (فارسی)**. Changing language updates content, accessibility metadata, and the full LTR/RTL layout immediately; the preference is retained in the browser.
 
 ## The failure in one minute
 
 A user searches for `ca`, then quickly searches for `cat`. The newer `cat` response arrives first, but the older `ca` response arrives last and overwrites the visible results. Both responses are individually valid; committing them in completion order violates **latest query wins**.
+
+The second lesson submits a payment-like action or save form twice. The broken lane admits both attempts at once and can create two effects. The fixed lane queues ownership through a FIFO mutex, deduplicates the repeated intent, and visibly releases the lock after success, failure, timeout, or cancellation. This is a local serialization guarantee—not a claim that a network effect happens exactly once.
 
 ## Reproduce it
 

@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import LabHeader from '../components/LabHeader.vue'
 import ScenarioCatalogPage from '../pages/ScenarioCatalogPage.vue'
 import SearchRacePage from '../pages/SearchRacePage.vue'
+import MutualExclusionPage from '../pages/MutualExclusionPage.vue'
 
 const path = ref(window.location.pathname)
 const { t } = useI18n()
@@ -21,6 +22,7 @@ onBeforeUnmount(() => window.removeEventListener('popstate', syncPath))
   <LabHeader />
   <main id="main">
     <SearchRacePage v-if="path.includes('/scenario/search-race')" />
+    <MutualExclusionPage v-else-if="path.includes('/scenario/mutual-exclusion')" />
     <ScenarioCatalogPage v-else />
   </main>
   <footer><span>{{ t('footer.name') }}</span><span>{{ t('footer.status') }}</span></footer>

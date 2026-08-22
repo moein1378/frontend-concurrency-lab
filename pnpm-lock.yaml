@@ -556,9 +556,6 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  intro.js@8.5.0:
-    resolution: {integrity: sha512-oKd5bnt3+kI7KHEZYaxz1fl87qAsziD8zXEA7FKtIgeEmpEbqACrlY1VibMyK76Ge1W/FnQ/DNfrolzio9ZaHg==}
-
   enhanced-resolve@5.24.5:
     resolution: {integrity: sha512-L1l8TNvomm6UVW5B253AGxQagSQr+vGwhMlrrfRS2qmhx46AMpMVJKQYLvWYbysTMY8VoicOvzHzoHMbyzB+4A==}
     engines: {node: '>=10.13.0'}
@@ -683,6 +680,9 @@ packages:
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
+
+  intro.js@8.5.0:
+    resolution: {integrity: sha512-oKd5bnt3+kI7KHEZYaxz1fl87qAsziD8zXEA7FKtIgeEmpEbqACrlY1VibMyK76Ge1W/FnQ/DNfrolzio9ZaHg==}
 
   is-extglob@2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
@@ -1537,8 +1537,6 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  intro.js@8.5.0: {}
-
   enhanced-resolve@5.24.5:
     dependencies:
       graceful-fs: 4.2.11
@@ -1665,6 +1663,8 @@ snapshots:
   ignore@5.3.2: {}
 
   imurmurhash@0.1.4: {}
+
+  intro.js@8.5.0: {}
 
   is-extglob@2.1.1: {}
 

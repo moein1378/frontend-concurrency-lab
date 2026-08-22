@@ -3,3 +3,5 @@ export { runFixedSearchRace, type FixedSearchOptions } from './application/run-f
 export { runSearchRaceComparison, type SearchRaceComparisonOptions } from './application/run-search-race-comparison'
 export { SeededLatencyGenerator } from './domain/seeded-latency'
 export type { SearchProtectionStrategy, SearchRaceComparison, SearchRaceRun, SearchRequest, SearchResult } from './domain/scenario'
+export { runMutualExclusionComparison, type MutualExclusionOptions } from './application/run-mutual-exclusion-comparison'
+export type { MutationExample, MutationOutcome, MutualExclusionComparison, MutualExclusionRun } from './domain/mutual-exclusion'

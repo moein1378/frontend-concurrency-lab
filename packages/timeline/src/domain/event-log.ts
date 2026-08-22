@@ -1,6 +1,6 @@
 import type { Clock } from './clock'
 
-export type TimelineEventKind = 'request' | 'abort' | 'response' | 'commit' | 'discard' | 'invariant'
+export type TimelineEventKind = 'request' | 'abort' | 'response' | 'commit' | 'discard' | 'queued' | 'acquire' | 'enter' | 'fail' | 'timeout' | 'cancel' | 'release' | 'invariant'
 
 export interface TimelineEvent<T = unknown> {
   sequence: number

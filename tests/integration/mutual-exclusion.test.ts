@@ -1,0 +1,3 @@
+import { describe, expect, it } from 'vitest'
+import { runMutualExclusionComparison } from '@concurrency-lab/scenario-engine'
+describe('phase 3 mutual exclusion comparison', () => { it('uses identical controls while changing only ownership', () => { const comparison = runMutualExclusionComparison({ seed: 'review', example: 'save', outcome: 'timeout' }); expect(comparison.broken.example).toBe(comparison.fixed.example); expect(comparison.broken.outcome).toBe(comparison.fixed.outcome); expect(comparison.fixed.events.some((event) => event.kind === 'release')).toBe(true); expect(comparison.fixed.invariant.passed).toBe(true) }) })

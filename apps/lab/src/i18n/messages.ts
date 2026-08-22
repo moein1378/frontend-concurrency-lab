@@ -4,7 +4,7 @@ export const messages = {
       brand: 'Concurrency Lab', scenarios: 'Scenarios', primitivesSoon: 'Primitives · soon', fixture: 'Fixture',
       themeLight: 'Use light theme', themeDark: 'Use dark theme', language: 'Language', english: 'English', persian: 'فارسی',
       startTour: 'Guided tour', skipContent: 'Skip to content', reset: 'Reset', events: '{count} events', inputsLocked: 'Inputs locked', inputsEditable: 'Inputs ready to edit',
-      phase: 'Phase 2', level: 'Learning depth', junior: 'Junior', mid: 'Mid-level', senior: 'Senior', allLevels: 'Useful at every level',
+      phase: 'Phase 3', level: 'Learning depth', junior: 'Junior', mid: 'Mid-level', senior: 'Senior', allLevels: 'Useful at every level',
     },
     catalog: {
       eyebrow: 'Interactive concurrency lessons', titleA: 'See the race.', titleB: 'Understand the guarantee.',
@@ -13,7 +13,7 @@ export const messages = {
       step1Title: '1 · Predict', step1: 'Read the invariant and guess which query should remain visible.',
       step2Title: '2 · Reproduce', step2: 'Run the broken and fixed lanes with identical timing.',
       step3Title: '3 · Explain', step3: 'Use the event timeline to explain why one write is accepted and another is rejected.',
-      catalogTitle: 'Scenario catalog', available: '1 complete lesson', compareBadge: 'Broken + fixed', number: '01', scenarioTitle: 'Stale search response',
+      catalogTitle: 'Scenario catalog', available: '2 complete lessons', compareBadge: 'Broken + fixed', number: '01', scenarioTitle: 'Stale search response',
       scenarioSummary: 'An older request finishes last and overwrites the newer search unless cancellation or a freshness guard stops the stale write.',
       failureType: 'Failure type', raceCondition: 'Race condition', invariant: 'Protected invariant', latestWins: 'Latest query wins', runtime: 'Runtime', deterministic: 'Deterministic fixture',
       concepts: 'You will learn', conceptList: 'Request ordering · AbortSignal propagation · sequence tokens · stale-write prevention',
@@ -66,14 +66,14 @@ export const messages = {
     },
     tour: { next: 'Next', previous: 'Previous', done: 'Start exploring', close: 'Close tour', progress: ':current of :total' },
     results: { Camera: 'Camera', Canvas: 'Canvas', Cache: 'Cache', Cat: 'Cat', Catamaran: 'Catamaran', Catalogue: 'Catalogue' },
-    footer: { name: 'Frontend Concurrency Lab', status: 'Fixture mode · v0.2.0' },
+    footer: { name: 'Frontend Concurrency Lab', status: 'Fixture mode · v0.3.0' },
   },
   fa: {
     common: {
       brand: 'آزمایشگاه هم‌زمانی', scenarios: 'سناریوها', primitivesSoon: 'مفاهیم پایه · به‌زودی', fixture: 'حالت آزمایشی',
       themeLight: 'استفاده از پوسته روشن', themeDark: 'استفاده از پوسته تیره', language: 'زبان', english: 'English', persian: 'فارسی',
       startTour: 'راهنمای گام‌به‌گام', skipContent: 'رفتن به محتوای اصلی', reset: 'بازنشانی', events: '{count} رویداد', inputsLocked: 'ورودی‌ها قفل‌اند', inputsEditable: 'ورودی‌ها آمادهٔ ویرایش‌اند',
-      phase: 'فاز ۲', level: 'سطح یادگیری', junior: 'تازه‌کار', mid: 'سطح متوسط', senior: 'ارشد', allLevels: 'مناسب برای همهٔ سطوح',
+      phase: 'فاز ۳', level: 'سطح یادگیری', junior: 'تازه‌کار', mid: 'سطح متوسط', senior: 'ارشد', allLevels: 'مناسب برای همهٔ سطوح',
     },
     catalog: {
       eyebrow: 'درس‌های تعاملی هم‌زمانی', titleA: 'رقابت را ببینید.', titleB: 'تضمین را درک کنید.',
@@ -82,7 +82,7 @@ export const messages = {
       step1Title: '۱ · پیش‌بینی', step1: 'قانون همواره‌درست را بخوانید و حدس بزنید نتیجهٔ کدام جست‌وجو باید دیده شود.',
       step2Title: '۲ · بازتولید', step2: 'نسخهٔ خراب و اصلاح‌شده را با زمان‌بندی کاملاً یکسان اجرا کنید.',
       step3Title: '۳ · توضیح', step3: 'با خط زمانی توضیح دهید چرا یک نوشتن پذیرفته و دیگری رد شده است.',
-      catalogTitle: 'فهرست سناریوها', available: '۱ درس کامل', compareBadge: 'خراب + اصلاح‌شده', number: '۰۱', scenarioTitle: 'پاسخ قدیمی جست‌وجو',
+      catalogTitle: 'فهرست سناریوها', available: '۲ درس کامل', compareBadge: 'خراب + اصلاح‌شده', number: '۰۱', scenarioTitle: 'پاسخ قدیمی جست‌وجو',
       scenarioSummary: 'یک درخواست قدیمی دیرتر تمام می‌شود و جست‌وجوی جدید را بازنویسی می‌کند؛ مگر اینکه لغو یا کنترل تازگی جلوی نوشتن قدیمی را بگیرد.',
       failureType: 'نوع خطا', raceCondition: 'شرایط رقابتی', invariant: 'قانون محافظت‌شده', latestWins: 'آخرین جست‌وجو برنده است', runtime: 'محیط اجرا', deterministic: 'دادهٔ آزمایشی قطعی',
       concepts: 'چه می‌آموزید', conceptList: 'ترتیب درخواست‌ها · انتقال AbortSignal · توکن ترتیبی · جلوگیری از نوشتن قدیمی',
@@ -135,6 +135,6 @@ export const messages = {
     },
     tour: { next: 'بعدی', previous: 'قبلی', done: 'شروع آزمایش', close: 'بستن راهنما', progress: ':current از :total' },
     results: { Camera: 'دوربین', Canvas: 'بوم نقاشی', Cache: 'حافظهٔ نهان', Cat: 'گربه', Catamaran: 'قایق کاتاماران', Catalogue: 'فهرست کالا' },
-    footer: { name: 'آزمایشگاه هم‌زمانی فرانت‌اند', status: 'حالت آزمایشی · نسخهٔ ۰.۲.۰' },
+    footer: { name: 'آزمایشگاه هم‌زمانی فرانت‌اند', status: 'حالت آزمایشی · نسخهٔ ۰.۳.۰' },
   },
 } as const
