@@ -9,3 +9,5 @@ export { runUploadComparison, type UploadOptions } from './application/run-uploa
 export type { UploadComparison, UploadRun } from './domain/bounded-concurrency'
 export { runSingleFlightComparison, type SingleFlightOptions } from './application/run-single-flight-comparison'
 export type { SingleFlightComparison, SingleFlightRun } from './domain/single-flight'
+export { runCrossTabComparison } from './application/run-cross-tab-comparison'
+export type { CrossTabComparison, CrossTabRun, JobOwnershipPort } from './domain/cross-tab'

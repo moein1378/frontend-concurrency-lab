@@ -1,6 +1,6 @@
 ---
 id: remaining-concurrency-lab-phases
-status: pending
+status: completed
 created_at: 2026-08-22
 updated_at: 2026-08-22
 baseline:
@@ -92,7 +92,7 @@ steps:
       - Deterministic bundle/runtime budgets are documented and enforced.
       - Release-candidate gate passes or has exact environment-only exceptions; phase commit exists.
   - id: S6
-    status: pending
+    status: completed
     purpose: Implement and commit Phase 7 stable teaching-release completion and run the final release audit.
     depends_on: [S5]
     files_or_surface:
@@ -112,6 +112,9 @@ decisions:
   - date: 2026-08-22
     decision: Do not implement inferred cross-tab ownership in Phase 6.
     reason: It is V1 product scope but is not assigned to Phases 3–7; phase instructions prohibit pulling backlog scope into an active phase.
+  - date: 2026-08-22
+    decision: Complete cross-tab ownership and the primitive playground in Phase 7.
+    reason: Independent stable-release review confirmed both are explicit V1/visible-surface requirements; keeping them out of Phase 6 preserved that hardening boundary while Phase 7 completes the stable teaching contract.
 ---
 
 ## Baseline evidence

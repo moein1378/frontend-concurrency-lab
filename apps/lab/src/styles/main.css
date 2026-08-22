@@ -189,6 +189,7 @@ nav a { display: flex; align-items: center; text-decoration: none; } nav span { 
 [dir='rtl'] .introjs-progressbar { float: right; }
 @keyframes live-pulse { 50% { opacity: .35; transform: scale(.8); } }
 footer { max-width: var(--content-default); margin: auto; padding: var(--space-8); display: flex; justify-content: space-between; border-top: 1px solid var(--color-border); color: var(--color-muted); font-size: .75rem; }
+.trace-download { min-height: 44px; padding-inline: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-md); color: var(--color-text); background: var(--color-surface); cursor: pointer; }
 @media (max-width: 760px) {
   .site-header { grid-template-columns: 1fr auto; } nav, .mode-badge, .header-actions > .tour-button { display: none; }
   .catalog-hero, .detail-hero { padding: var(--space-16) var(--space-4) var(--space-10); }

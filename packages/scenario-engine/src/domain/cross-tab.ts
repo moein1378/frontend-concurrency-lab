@@ -1,0 +1,1 @@
+import type { TimelineEvent } from '@concurrency-lab/timeline'; export interface JobOwnershipPort{claim(jobId:string,tabId:string):string}export interface CrossTabRun{variant:'broken'|'fixed';owners:readonly string[];invariant:{passed:boolean;statement:string};events:readonly TimelineEvent[]}export interface CrossTabComparison{seed:string;broken:CrossTabRun;fixed:CrossTabRun}

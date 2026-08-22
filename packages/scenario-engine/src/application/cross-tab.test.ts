@@ -1,0 +1,1 @@
+import{describe,expect,it}from'vitest';import{runCrossTabComparison}from'./run-cross-tab-comparison';describe('cross-tab ownership',()=>{it('shows duplicate claims and deterministic single ownership',()=>{const c=runCrossTabComparison('v1');expect(c.broken.owners).toEqual(['A','B']);expect(c.fixed.owners).toEqual(['A']);expect(c.fixed.invariant.passed).toBe(true)})})

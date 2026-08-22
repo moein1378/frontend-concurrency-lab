@@ -36,7 +36,7 @@ function run(variant: 'broken' | 'fixed', options: MutualExclusionOptions): Mutu
       effects = 1
       log.record('commit', 'Queued attempt completed after recovery', { attempt: 2 })
     } else {
-      log.record('discard', 'Duplicate intent was deduplicated before another effect', { attempt: 2 })
+      log.record('discard', 'A separate idempotency-key policy deduplicated the second effect', { attempt: 2, idempotencyKey: `${options.seed}:${label}:intent-1` })
     }
     log.record('release', 'Second attempt released the mutex', { attempt: 2, queueDepth: 0 })
   }

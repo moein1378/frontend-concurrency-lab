@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 export default defineConfig({
   resolve: {
     alias: {
+      '@concurrency-lab/concurrency-core': fileURLToPath(new URL('./packages/concurrency-core/src/index.ts', import.meta.url)),
       '@concurrency-lab/scenario-engine': fileURLToPath(new URL('./packages/scenario-engine/src/index.ts', import.meta.url)),
       '@concurrency-lab/timeline': fileURLToPath(new URL('./packages/timeline/src/index.ts', import.meta.url)),
     },

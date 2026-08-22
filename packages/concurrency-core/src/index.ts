@@ -2,3 +2,4 @@ export { LatestWinsCoordinator, type LatestOperation } from './application/lates
 export { Mutex } from './application/mutex'
 export { Semaphore } from './application/semaphore'
 export { SingleFlightRegistry } from './application/single-flight'
+export { IdempotencyRegistry } from './application/idempotency'

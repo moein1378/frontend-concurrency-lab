@@ -8,6 +8,7 @@ const { locale, t } = useI18n()
 const dark = ref(false)
 const baseUrl = import.meta.env.BASE_URL
 const catalogUrl = `${baseUrl}scenarios`
+const primitivesUrl = `${baseUrl}primitives`
 const faviconUrl = `${baseUrl}favicon.svg`
 onMounted(() => { dark.value = document.documentElement.dataset.theme === 'dark' })
 
@@ -34,7 +35,7 @@ function startTour() {
     </a>
     <nav aria-label="Primary navigation">
       <a :href="catalogUrl">{{ t('common.scenarios') }}</a>
-      <span aria-disabled="true">{{ t('common.primitivesSoon') }}</span>
+      <a :href="primitivesUrl">{{ t('common.primitives') }}</a>
     </nav>
     <div class="header-actions">
       <span class="mode-badge"><span aria-hidden="true">●</span> {{ t('common.fixture') }}</span>

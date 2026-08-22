@@ -83,3 +83,22 @@ test('timeline is keyboard inspectable in desktop and phone projects', async ({ 
   await page.keyboard.press('ArrowDown')
   await expect(timeline.locator('li').first()).toBeFocused()
 })
+
+test('reviewer downloads the visible structured trace', async ({ page }) => {
+  await page.goto('/scenario/search-race/compare')
+  await page.getByRole('button', { name: /Run live comparison/ }).click()
+  await expect(page.getByText('Complete', { exact: true })).toBeVisible()
+  const downloadPromise = page.waitForEvent('download')
+  await page.getByRole('button', { name: 'Download visible trace' }).click()
+  const download = await downloadPromise
+  expect(download.suggestedFilename()).toBe('concurrency-trace-search-race.json')
+  const stream = await download.createReadStream()
+  let content = ''
+  for await (const chunk of stream) content += chunk.toString()
+  const trace = JSON.parse(content) as { format: string; scenario: string; deterministic: boolean; controls: unknown[]; timelines: Array<{ events: Array<{ sequence: number; timestampMs: number; kind: string; label: string }> }> }
+  expect(trace.format).toBe('frontend-concurrency-lab-trace-v1')
+  expect(trace.scenario).toBe('search-race')
+  expect(trace.deterministic).toBe(true)
+  expect(trace.controls.length).toBeGreaterThan(0)
+  expect(trace.timelines[0]?.events[0]).toEqual(expect.objectContaining({ sequence: 1, timestampMs: 0, kind: 'request' }))
+})

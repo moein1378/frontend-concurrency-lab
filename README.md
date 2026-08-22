@@ -12,9 +12,11 @@
 
 | Release | Reproducibility | Protected invariant |
 | --- | --- | --- |
-| **v0.9.0 · Release candidate** | Seeded local fixture; no network | Four protected invariants with keyboard timelines and cross-browser CI |
+| **v1.0.0 · Stable** | Seeded local fixture; no network | Six examples, frozen public contracts, downloadable keyboard-readable traces |
 
 The complete interface and guided tours are available in **English and Persian (فارسی)**. Changing language updates content, accessibility metadata, and the full LTR/RTL layout immediately; the preference is retained in the browser.
+
+After revealing a scenario trace, use **Download visible trace** in the footer to save the structured evidence as local JSON. No trace is uploaded.
 
 ## The failure in one minute
 

@@ -17,7 +17,7 @@ framework:
 packages:
   - path: apps/lab
     name: "@concurrency-lab/app"
-    purpose: Client-rendered catalog and progressive broken/fixed teaching application for freshness, mutual exclusion, bounded concurrency, and single-flight scenarios.
+    purpose: Client-rendered catalog, primitive playground, and progressive broken/fixed teaching application for freshness, mutual exclusion, bounded concurrency, single-flight, and cross-tab ownership.
   - path: packages/concurrency-core
     name: "@concurrency-lab/concurrency-core"
     purpose: Framework-independent coordination primitives.
@@ -61,8 +61,8 @@ quality:
     - "pnpm build"
     - "pnpm verify"
   tests:
-    - Vitest 4.1.10 for colocated unit and root integration tests.
-    - Playwright 1.62.1 uses installed stable Chrome by default and supports a PLAYWRIGHT_BROWSER_CHANNEL=bundled local override.
+    - Vitest 4.1.10 for colocated unit, root integration, and frozen v1 public-export contract tests.
+    - Playwright 1.62.1 defines Chromium, Firefox, WebKit, and phone projects; CI installs browser binaries and local Chromium supports a PLAYWRIGHT_BROWSER_CHANNEL=bundled override.
     - Translation-contract tests require matching non-empty English/Persian message keys; E2E covers RTL and tours.
   ci:
     - .github/workflows/ci.yml installs Chromium/Firefox/WebKit, runs the frozen-install verify and bundle-budget gates, performs pull-request dependency review, and uploads apps/lab/dist.
@@ -97,6 +97,12 @@ constraints:
     confidence: high
   - statement: Release-candidate hardening provides focusable arrow-navigable structured timelines, four Playwright projects, and an enforced 200 KiB gzip initial-JavaScript budget.
     evidence: apps/lab/src/app/App.vue; playwright.config.ts; scripts/check-bundle-budget.mjs; docs/adr/0003-scenario-boundaries-and-release-hardening.md
+    confidence: high
+  - statement: The v1 stable boundary is each package's deliberate src/index.ts exports; contract tests prevent accidental runtime export drift, and the app downloads visible trace evidence as local JSON.
+    evidence: tests/integration/public-contracts.test.ts; apps/lab/src/app/App.vue; CHANGELOG.md
+    confidence: high
+  - statement: Cross-tab ownership uses deterministic tab-ID election in fixture mode and explicitly documents that production coordination additionally requires leases, heartbeats, and crash recovery.
+    evidence: packages/scenario-engine/src/application/run-cross-tab-comparison.ts; apps/lab/src/pages/CrossTabPage.vue; docs/failure-catalog.md
     confidence: high
   - statement: Use Intro.js for guided tours and do not introduce or retain another tour library without superseding ADR 0002.
     evidence: docs/adr/0002-progressive-playback-and-introjs-tours.md; apps/lab/package.json; apps/lab/src/tours/create-tour.ts

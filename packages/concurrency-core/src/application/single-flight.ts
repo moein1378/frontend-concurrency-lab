@@ -10,4 +10,15 @@ export class SingleFlightRegistry {
     this.#flights.set(key, flight)
     return flight
   }
+
+  subscribe<T>(key: string, operation: () => Promise<T>, signal?: AbortSignal): Promise<T> {
+    const shared = this.run(key, operation)
+    if (!signal) return shared
+    if (signal.aborted) return Promise.reject(new Error(String(signal.reason ?? 'Subscriber cancelled')))
+    return new Promise<T>((resolve, reject) => {
+      const abort = () => reject(new Error(String(signal.reason ?? 'Subscriber cancelled')))
+      signal.addEventListener('abort', abort, { once: true })
+      shared.then(resolve, reject).finally(() => signal.removeEventListener('abort', abort)).catch(() => {})
+    })
+  }
 }

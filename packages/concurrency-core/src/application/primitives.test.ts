@@ -3,8 +3,10 @@ import { LatestWinsCoordinator } from './latest-wins'
 import { Mutex } from './mutex'
 import { Semaphore } from './semaphore'
 import { SingleFlightRegistry } from './single-flight'
+import { IdempotencyRegistry } from './idempotency'
 
 describe('phase 1 concurrency primitives', () => {
+  it('deduplicates completed effects by idempotency key independently of locking', async () => { const registry=new IdempotencyRegistry();let effects=0;const first=await registry.run('intent-1',()=>++effects);const duplicate=await registry.run('intent-1',()=>++effects);expect({first,duplicate,effects}).toEqual({first:{value:1,duplicate:false},duplicate:{value:1,duplicate:true},effects:1}) })
   it('identifies only the newest issued token', () => {
     const coordinator = new LatestWinsCoordinator()
     const first = coordinator.issue()
@@ -36,6 +38,17 @@ describe('phase 1 concurrency primitives', () => {
     await expect(registry.run('profile:1', async () => { calls += 1; throw new Error('offline') })).rejects.toThrow('offline')
     expect(await registry.run('profile:1', async () => ++calls)).toBe(2)
     await expect(registry.run('profile:2', () => { throw new Error('sync') })).rejects.toThrow('sync')
+    expect(registry.activeKeys).toEqual([])
+  })
+
+  it('lets one single-flight subscriber cancel without cancelling the shared producer', async () => {
+    const registry = new SingleFlightRegistry(); const controller = new AbortController(); let finish = (_value: number) => {}
+    const producer = () => new Promise<number>((resolve) => { finish = resolve })
+    const cancelled = registry.subscribe('shared', producer, controller.signal)
+    const active = registry.subscribe('shared', producer)
+    await Promise.resolve()
+    controller.abort('left view'); finish(42)
+    await expect(cancelled).rejects.toThrow('left view'); await expect(active).resolves.toBe(42)
     expect(registry.activeKeys).toEqual([])
   })
 
