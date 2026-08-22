@@ -81,7 +81,7 @@ steps:
       - Progressive browser journey distinguishes in-flight sharing from caching.
       - Phase gate passes or has an exact documented browser exception; phase commit exists.
   - id: S5
-    status: pending
+    status: completed
     purpose: Implement and commit Phase 6 release-candidate hardening: accessible timelines, responsive behavior, performance budgets, cross-browser tests, architecture/failure documentation, and GitHub Pages delivery configuration.
     depends_on: [S4]
     files_or_surface:

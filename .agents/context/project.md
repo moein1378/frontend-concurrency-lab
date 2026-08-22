@@ -65,8 +65,8 @@ quality:
     - Playwright 1.62.1 uses installed stable Chrome by default and supports a PLAYWRIGHT_BROWSER_CHANNEL=bundled local override.
     - Translation-contract tests require matching non-empty English/Persian message keys; E2E covers RTL and tours.
   ci:
-    - .github/workflows/ci.yml runs the frozen-install verify gate and uploads apps/lab/dist.
-    - .github/workflows/deploy-demo.yml publishes the deterministic demo to GitHub Pages only after CI succeeds on main.
+    - .github/workflows/ci.yml installs Chromium/Firefox/WebKit, runs the frozen-install verify and bundle-budget gates, performs pull-request dependency review, and uploads apps/lab/dist.
+    - .github/workflows/deploy-demo.yml publishes the deterministic demo to GitHub Pages only after CI succeeds on main and smoke-tests a stable scenario route.
 constraints:
   - statement: Use strict TypeScript and the existing Vue 3 Composition API conventions.
     evidence: apps/lab/tsconfig.json; apps/lab/src/components/LabHeader.vue
@@ -94,6 +94,9 @@ constraints:
     confidence: high
   - statement: Phase 5 normalizes in-flight keys, shares one promise per active key, cleans registry entries after all outcomes, keeps subscriber cancellation separate from producer ownership, and teaches stale-while-refresh as cache composition.
     evidence: packages/concurrency-core/src/application/single-flight.ts; packages/scenario-engine/src/application/run-single-flight-comparison.ts; docs/project/phase-05-brief.md
+    confidence: high
+  - statement: Release-candidate hardening provides focusable arrow-navigable structured timelines, four Playwright projects, and an enforced 200 KiB gzip initial-JavaScript budget.
+    evidence: apps/lab/src/app/App.vue; playwright.config.ts; scripts/check-bundle-budget.mjs; docs/adr/0003-scenario-boundaries-and-release-hardening.md
     confidence: high
   - statement: Use Intro.js for guided tours and do not introduce or retain another tour library without superseding ADR 0002.
     evidence: docs/adr/0002-progressive-playback-and-introjs-tours.md; apps/lab/package.json; apps/lab/src/tours/create-tour.ts

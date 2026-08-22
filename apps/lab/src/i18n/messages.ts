@@ -4,7 +4,7 @@ export const messages = {
       brand: 'Concurrency Lab', scenarios: 'Scenarios', primitivesSoon: 'Primitives · soon', fixture: 'Fixture',
       themeLight: 'Use light theme', themeDark: 'Use dark theme', language: 'Language', english: 'English', persian: 'فارسی',
       startTour: 'Guided tour', skipContent: 'Skip to content', reset: 'Reset', events: '{count} events', inputsLocked: 'Inputs locked', inputsEditable: 'Inputs ready to edit',
-      phase: 'Phase 5', level: 'Learning depth', junior: 'Junior', mid: 'Mid-level', senior: 'Senior', allLevels: 'Useful at every level',
+      phase: 'Release candidate', level: 'Learning depth', junior: 'Junior', mid: 'Mid-level', senior: 'Senior', allLevels: 'Useful at every level',
     },
     catalog: {
       eyebrow: 'Interactive concurrency lessons', titleA: 'See the race.', titleB: 'Understand the guarantee.',
@@ -66,14 +66,14 @@ export const messages = {
     },
     tour: { next: 'Next', previous: 'Previous', done: 'Start exploring', close: 'Close tour', progress: ':current of :total' },
     results: { Camera: 'Camera', Canvas: 'Canvas', Cache: 'Cache', Cat: 'Cat', Catamaran: 'Catamaran', Catalogue: 'Catalogue' },
-    footer: { name: 'Frontend Concurrency Lab', status: 'Fixture mode · v0.5.0' },
+    footer: { name: 'Frontend Concurrency Lab', status: 'Fixture mode · v0.9.0 RC' },
   },
   fa: {
     common: {
       brand: 'آزمایشگاه هم‌زمانی', scenarios: 'سناریوها', primitivesSoon: 'مفاهیم پایه · به‌زودی', fixture: 'حالت آزمایشی',
       themeLight: 'استفاده از پوسته روشن', themeDark: 'استفاده از پوسته تیره', language: 'زبان', english: 'English', persian: 'فارسی',
       startTour: 'راهنمای گام‌به‌گام', skipContent: 'رفتن به محتوای اصلی', reset: 'بازنشانی', events: '{count} رویداد', inputsLocked: 'ورودی‌ها قفل‌اند', inputsEditable: 'ورودی‌ها آمادهٔ ویرایش‌اند',
-      phase: 'فاز ۵', level: 'سطح یادگیری', junior: 'تازه‌کار', mid: 'سطح متوسط', senior: 'ارشد', allLevels: 'مناسب برای همهٔ سطوح',
+      phase: 'نسخهٔ نامزد انتشار', level: 'سطح یادگیری', junior: 'تازه‌کار', mid: 'سطح متوسط', senior: 'ارشد', allLevels: 'مناسب برای همهٔ سطوح',
     },
     catalog: {
       eyebrow: 'درس‌های تعاملی هم‌زمانی', titleA: 'رقابت را ببینید.', titleB: 'تضمین را درک کنید.',
@@ -135,6 +135,6 @@ export const messages = {
     },
     tour: { next: 'بعدی', previous: 'قبلی', done: 'شروع آزمایش', close: 'بستن راهنما', progress: ':current از :total' },
     results: { Camera: 'دوربین', Canvas: 'بوم نقاشی', Cache: 'حافظهٔ نهان', Cat: 'گربه', Catamaran: 'قایق کاتاماران', Catalogue: 'فهرست کالا' },
-    footer: { name: 'آزمایشگاه هم‌زمانی فرانت‌اند', status: 'حالت آزمایشی · نسخهٔ ۰.۵.۰' },
+    footer: { name: 'آزمایشگاه هم‌زمانی فرانت‌اند', status: 'حالت آزمایشی · نامزد نسخهٔ ۰.۹.۰' },
   },
 } as const

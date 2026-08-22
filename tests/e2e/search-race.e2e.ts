@@ -74,3 +74,12 @@ test('live playback exposes intermediate commits and supports inspection', async
   await expect(page.getByRole('heading', { name: 'Broken · results for “ca”' })).toBeVisible()
   await expect(page.getByText('Complete', { exact: true })).toBeVisible()
 })
+
+test('timeline is keyboard inspectable in desktop and phone projects', async ({ page }) => {
+  await page.goto('/scenario/search-race/compare')
+  await page.getByRole('button', { name: /Run live comparison/ }).click()
+  const timeline = page.getByRole('list', { name: /Event timeline/ }).first()
+  await timeline.focus()
+  await page.keyboard.press('ArrowDown')
+  await expect(timeline.locator('li').first()).toBeFocused()
+})

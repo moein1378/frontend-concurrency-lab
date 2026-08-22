@@ -42,3 +42,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Smoke test stable route
+        run: curl --fail --retry 5 --retry-delay 5 "${{ steps.deployment.outputs.page_url }}scenario/search-race/compare"

@@ -14,5 +14,10 @@ export default defineConfig({
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], channel: browserChannel } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'], channel: process.env.CI ? undefined : browserChannel } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'phone', use: { ...devices['Pixel 7'] } },
+  ],
 })

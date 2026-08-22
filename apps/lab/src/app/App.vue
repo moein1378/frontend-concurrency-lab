@@ -10,13 +10,33 @@ import SingleFlightPage from '../pages/SingleFlightPage.vue'
 
 const path = ref(window.location.pathname)
 const { t } = useI18n()
+let timelineObserver: MutationObserver | undefined
 
 function syncPath() {
   path.value = window.location.pathname
 }
 
-onMounted(() => window.addEventListener('popstate', syncPath))
-onBeforeUnmount(() => window.removeEventListener('popstate', syncPath))
+function prepareTimelines() {
+  document.querySelectorAll<HTMLElement>('.timeline').forEach((timeline) => {
+    timeline.tabIndex = 0
+    if (!timeline.getAttribute('aria-label')) timeline.setAttribute('aria-label', 'Event timeline; use Up and Down arrows to inspect events')
+    timeline.querySelectorAll<HTMLElement>('li').forEach((item) => { item.tabIndex = -1 })
+  })
+}
+
+function navigateTimeline(event: KeyboardEvent) {
+  if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
+  const timeline = (event.target as HTMLElement).closest<HTMLElement>('.timeline')
+  if (!timeline) return
+  const items = [...timeline.querySelectorAll<HTMLElement>('li')]
+  if (items.length === 0) return
+  const current = items.indexOf(document.activeElement as HTMLElement)
+  const next = event.key === 'ArrowDown' ? Math.min(items.length - 1, current + 1) : Math.max(0, current <= 0 ? 0 : current - 1)
+  event.preventDefault(); items[next]?.focus()
+}
+
+onMounted(() => { window.addEventListener('popstate', syncPath); document.addEventListener('keydown', navigateTimeline); prepareTimelines(); timelineObserver = new MutationObserver(prepareTimelines); timelineObserver.observe(document.body, { childList: true, subtree: true }) })
+onBeforeUnmount(() => { window.removeEventListener('popstate', syncPath); document.removeEventListener('keydown', navigateTimeline); timelineObserver?.disconnect() })
 </script>
 
 <template>

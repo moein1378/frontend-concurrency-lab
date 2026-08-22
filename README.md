@@ -12,7 +12,7 @@
 
 | Release | Reproducibility | Protected invariant |
 | --- | --- | --- |
-| **v0.5.0 · Phase 5** | Seeded local fixture; no network | Fresh search; exclusive mutations; bounded uploads; one producer per in-flight key |
+| **v0.9.0 · Release candidate** | Seeded local fixture; no network | Four protected invariants with keyboard timelines and cross-browser CI |
 
 The complete interface and guided tours are available in **English and Persian (فارسی)**. Changing language updates content, accessibility metadata, and the full LTR/RTL layout immediately; the preference is retained in the browser.
 

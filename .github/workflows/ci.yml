@@ -19,9 +19,18 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
       - run: pnpm verify
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: phase-2-production-build
+          name: release-candidate-production-build
           path: apps/lab/dist
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
