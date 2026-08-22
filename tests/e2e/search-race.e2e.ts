@@ -5,7 +5,7 @@ test('reviewer compares broken search with propagated cancellation', async ({ pa
   await expect(page.getByRole('heading', { name: 'Scenario catalog' })).toBeVisible()
   await page.getByRole('link', { name: /Start the lesson/ }).click()
   await expect(page).toHaveURL(/\/scenario\/search-race\/compare$/)
-  await page.getByRole('button', { name: /Run synchronized comparison/ }).click()
+  await page.getByRole('button', { name: /Run live comparison/ }).click()
 
   await expect(page.getByRole('heading', { name: 'Broken · results for “ca”' })).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Fixed · results for “cat”' })).toBeVisible()
@@ -18,7 +18,7 @@ test('reviewer compares broken search with propagated cancellation', async ({ pa
 test('reviewer switches to freshness protection and sees a stale discard', async ({ page }) => {
   await page.goto('/scenario/search-race/compare')
   await page.getByLabel('Discard stale').check()
-  await page.getByRole('button', { name: /Run synchronized comparison/ }).click()
+  await page.getByRole('button', { name: /Run live comparison/ }).click()
 
   await expect(page.getByText('Freshness guard active')).toBeVisible()
   await expect(page.getByText('Stale response “ca” discarded')).toBeVisible()
@@ -28,7 +28,7 @@ test('reviewer switches to freshness protection and sees a stale discard', async
 test('in-order response mode remains a valid non-failing control', async ({ page }) => {
   await page.goto('/scenario/search-race/broken')
   await page.getByLabel('Response order').selectOption('in-order')
-  await page.getByRole('button', { name: /Run synchronized comparison/ }).click()
+  await page.getByRole('button', { name: /Run live comparison/ }).click()
 
   await expect(page.getByRole('heading', { name: 'Broken · results for “cat”' })).toBeVisible()
   await expect(page.getByText('Invariant held')).toHaveCount(2)
@@ -58,4 +58,19 @@ test('guided tours explain both the catalog and scenario', async ({ page }) => {
   await expect(page.getByText('One controlled experiment')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'Broken · results for “ca”' })).toBeVisible()
   await page.keyboard.press('Escape')
+})
+
+test('live playback exposes intermediate commits and supports inspection', async ({ page }) => {
+  await page.goto('/scenario/search-race/compare')
+  await page.getByLabel('Playback speed').selectOption('0.5')
+  await page.getByRole('button', { name: /Run live comparison/ }).click()
+
+  await expect(page.getByText('Live', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Pause trace' }).click()
+  await expect(page.getByText('Paused', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Resume trace' }).click()
+
+  await expect(page.getByRole('heading', { name: 'Broken · results for “cat”' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Broken · results for “ca”' })).toBeVisible()
+  await expect(page.getByText('Complete', { exact: true })).toBeVisible()
 })

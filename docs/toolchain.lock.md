@@ -1,6 +1,6 @@
 # Toolchain lock
 
-Verified against npm registry metadata on 2026-08-17.
+Verified against npm registry metadata on 2026-08-21.
 
 - Node.js: 24 LTS
 - pnpm: 11.22.0
@@ -14,7 +14,7 @@ Verified against npm registry metadata on 2026-08-17.
 - Playwright: 1.62.1
 - ESLint: 10.8.1
 - Vue I18n: 11.1.12
-- Driver.js: 1.8.0
+- Intro.js: 8.5.0
 
 TypeScript stays on the blueprint's supported 5.x line because the current Vue SFC typechecker does not yet support TypeScript 7's exported compiler surface.
 

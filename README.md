@@ -25,7 +25,7 @@ A user searches for `ca`, then quickly searches for `cat`. The newer `cat` respo
 1. Open the [interactive lab](https://moein1378.github.io/frontend-concurrency-lab/scenario/search-race/compare).
 2. Keep **Older “ca” arrives last** selected.
 3. Choose **Cancel superseded** or **Discard stale**.
-4. Run the synchronized comparison.
+4. Run the live comparison. Follow each virtual-time step, pause when needed, and watch each commit update its lane before the invariant is evaluated.
 
 Both lanes receive the same seed, queries, issue times, and latencies. The broken lane commits `ca`; the fixed lane preserves `cat`.
 
@@ -43,9 +43,9 @@ The [broken runner](./packages/scenario-engine/src/application/run-broken-search
 | `600ms` | Commit stale `ca` | Discard stale `ca` when freshness is selected |
 | final | **Invariant violated** | **Invariant held** |
 
-The UI renders request, abort, response, commit, discard, and invariant events as structured text, so the evidence does not depend on color or animation.
+The UI progressively renders request, abort, response, commit, discard, and invariant events as structured text. Playback exposes virtual time, progress, pause/resume, replay, and speed controls, so learners can inspect intermediate results without depending on color or animation.
 
-Use **Guided tour** from the header or experiment panel for a localized, step-by-step walkthrough. The scenario tour runs a deterministic comparison first, then explains controls, strategies, both outcomes, and the timeline in context.
+Use **Guided tour** from the header or experiment panel for a localized Intro.js walkthrough. The scenario tour starts deterministic playback, then explains controls, strategies, intermediate outcomes, and the live timeline in context.
 
 ## Correct implementations
 

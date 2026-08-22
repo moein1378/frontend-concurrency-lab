@@ -6,8 +6,8 @@ describe('phase 1 deterministic harness', () => {
     const run = runBrokenSearchRace({ seed: 'integration', firstLatency: 600, secondLatency: 180 })
     expect(run.events.filter((event) => event.kind === 'request')).toHaveLength(2)
     expect(run.events.filter((event) => event.kind === 'commit').map((event) => event.detail)).toEqual([
-      { query: 'cat' },
-      { query: 'ca' },
+      { query: 'cat', items: ['Cat', 'Catamaran', 'Catalogue'] },
+      { query: 'ca', items: ['Camera', 'Canvas', 'Cache'] },
     ])
     expect(run.invariant).toMatchObject({ id: 'latest-query-wins', passed: false })
   })

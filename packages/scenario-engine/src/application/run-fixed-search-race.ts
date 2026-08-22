@@ -46,7 +46,7 @@ export function runFixedSearchRace(options: FixedSearchOptions): SearchRaceRun {
       continue
     }
     committed = result
-    log.record('commit', `Results replaced by “${result.query}”`, { query: result.query })
+    log.record('commit', `Results replaced by “${result.query}”`, result)
   }
 
   const expected = resultFor(requests.at(-1)?.query ?? '')

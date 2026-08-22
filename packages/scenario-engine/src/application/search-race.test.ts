@@ -23,6 +23,10 @@ describe('search race scenario', () => {
     const run = runBrokenSearchRace({ seed: 'review', firstLatency: 100, secondLatency: 500 })
     expect(run.committed.query).toBe('cat')
     expect(run.invariant.passed).toBe(true)
+    expect(run.events.find((event) => event.kind === 'commit')?.detail).toEqual({
+      query: 'ca',
+      items: ['Camera', 'Canvas', 'Cache'],
+    })
   })
 
   it('propagates cancellation and prevents a superseded response', () => {

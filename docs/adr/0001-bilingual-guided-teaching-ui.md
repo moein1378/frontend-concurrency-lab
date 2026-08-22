@@ -11,7 +11,7 @@ The lab must teach deterministic browser-concurrency concepts to English- and Pe
 ## Decision
 
 - Use `vue-i18n@11.1.12` in Composition API mode inside `apps/lab`, with its matching published devtools type package available only for strict typechecking. Newer 11.2+ bundles currently import a Vue type absent from the latest Vue 3.5 release.
-- Use `driver.js@1.8.0` for page-owned guided tours.
+- Use a single shared tour adapter for page-owned guided tours. The original Driver.js choice is superseded by ADR 0002, which standardizes Intro.js.
 - Keep messages and tour definitions in the application package; framework-independent domain packages remain language-neutral.
 - Locale changes update `html[lang]`, `html[dir]`, and a safe local-storage preference. Persian uses full document RTL while technical identifiers and timing values retain explicit LTR isolation.
 - Tours are optional, restartable, keyboard operable, reduced-motion aware, and never required to access scenario behavior.
@@ -36,3 +36,5 @@ The lab must teach deterministic browser-concurrency concepts to English- and Pe
 - `apps/lab/package.json`
 
 Confidence: high. Re-evaluate on major dependency upgrades or if tours become cross-route state machines.
+
+Tour-library decision superseded by [ADR 0002](./0002-progressive-playback-and-introjs-tours.md); the bilingual and accessibility decisions remain accepted.

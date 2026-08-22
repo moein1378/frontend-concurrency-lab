@@ -1,5 +1,12 @@
-import { driver, type DriveStep } from 'driver.js'
-import 'driver.js/dist/driver.css'
+import introJs from 'intro.js'
+import 'intro.js/introjs.css'
+
+export interface GuidedTourStep {
+  element?: string | HTMLElement
+  title: string
+  intro: string
+  position?: 'top' | 'right' | 'bottom' | 'left' | 'floating'
+}
 
 export interface TourLabels {
   next: string
@@ -9,22 +16,23 @@ export interface TourLabels {
   progress: string
 }
 
-export function startGuidedTour(steps: DriveStep[], labels: TourLabels, rtl: boolean): void {
-  const progressText = labels.progress
-    .replace(':current', '{{current}}')
-    .replace(':total', '{{total}}')
-
-  driver({
+export function startGuidedTour(steps: GuidedTourStep[], labels: TourLabels, rtl: boolean): void {
+  const tour = introJs.tour()
+  tour.setOptions({
     steps,
-    animate: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    allowClose: true,
-    overlayClickBehavior: 'nextStep',
+    nextLabel: labels.next,
+    prevLabel: labels.previous,
+    doneLabel: labels.done,
+    skipLabel: labels.close,
     showProgress: true,
-    progressText,
-    nextBtnText: labels.next,
-    prevBtnText: labels.previous,
-    doneBtnText: labels.done,
-    popoverClass: rtl ? 'lab-tour lab-tour-rtl' : 'lab-tour',
-    onPopoverRender: (popover) => popover.closeButton.setAttribute('aria-label', labels.close),
-  }).drive()
+    showStepNumbers: true,
+    stepNumbersOfLabel: labels.progress.replace(':current', '').replace(':total', '').trim() || 'of',
+    exitOnEsc: true,
+    exitOnOverlayClick: true,
+    keyboardNavigation: true,
+    scrollToElement: true,
+    disableInteraction: false,
+    tooltipClass: rtl ? 'lab-tour lab-tour-rtl' : 'lab-tour',
+  })
+  void tour.start()
 }

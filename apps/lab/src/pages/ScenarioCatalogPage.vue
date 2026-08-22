@@ -14,10 +14,10 @@ const learningLevels = [
 
 function startTour() {
   startGuidedTour([
-    { element: '[data-tour="catalog-hero"]', popover: { title: t('catalog.tourWelcomeTitle'), description: t('catalog.tourWelcome'), side: 'bottom' } },
-    { element: '[data-tour="learning-method"]', popover: { title: t('catalog.tourMethodTitle'), description: t('catalog.tourMethod'), side: 'bottom' } },
-    { element: '[data-tour="scenario-card"]', popover: { title: t('catalog.tourCardTitle'), description: t('catalog.tourCard'), side: 'top' } },
-    { element: '[data-tour="scenario-action"]', popover: { title: t('catalog.tourActionTitle'), description: t('catalog.tourAction'), side: 'top' } },
+    { element: '[data-tour="catalog-hero"]', title: t('catalog.tourWelcomeTitle'), intro: t('catalog.tourWelcome'), position: 'bottom' },
+    { element: '[data-tour="learning-method"]', title: t('catalog.tourMethodTitle'), intro: t('catalog.tourMethod'), position: 'bottom' },
+    { element: '[data-tour="scenario-card"]', title: t('catalog.tourCardTitle'), intro: t('catalog.tourCard'), position: 'top' },
+    { element: '[data-tour="scenario-action"]', title: t('catalog.tourActionTitle'), intro: t('catalog.tourAction'), position: 'top' },
   ], {
     next: t('tour.next'), previous: t('tour.previous'), done: t('tour.done'), close: t('tour.close'), progress: t('tour.progress'),
   }, locale.value === 'fa')

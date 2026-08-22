@@ -9,20 +9,22 @@
 - Fixed CI setup ordering so pnpm exists before setup-node initializes its pnpm cache.
 - Added English/Persian localization, persistent language selection, full-document RTL/LTR direction, and localized dynamic timeline evidence.
 - Expanded the catalog and stale-search scenario with learning outcomes, prerequisite and mental-model guidance, glossary, invariant explanation, trade-offs, decision guidance, experience-level takeaways, and limitations.
-- Added optional localized Driver.js tours for both the catalog and scenario workflow.
+- Replaced Driver.js with localized Intro.js tours for both the catalog and scenario workflow.
+- Replaced atomic result rendering with deterministic progressive playback: each virtual-time frame reveals trace events and commit-driven visible results, with pause/resume, replay, speed, progress, and input locking.
 
 ## Decisions
 
 - Cancellation remains a deterministic virtual-time browser-platform simulation; no network fixture or service is required.
 - Both fixed strategies share one comparison surface so a reviewer can inspect the trade-off without controls drifting between runs.
 - The existing broken detail URL remains compatible and renders the comparison; the catalog now links to `/scenario/search-race/compare`.
+- Deterministic domain runs remain synchronous; real-time pacing is an application-layer projection so domain tests stay fast and exact. See ADR 0002.
 
 ## Verification
 
 - Required release command: `pnpm verify`.
 - Reviewer flow: catalog → synchronized comparison → cancellation abort → freshness discard → both fixed invariants pass.
-- Verified locally: lint, architecture check, typecheck, 18 unit/integration tests, and production build pass.
-- Documented exception: Playwright reached its web server but no Linux Chrome was installed. The pinned browser CDN returned a regional HTTP 403 and the alternate mirror timed out, so the three browser journeys remain implemented but unexecuted locally. CI's stable Chrome channel is unchanged.
+- Verified locally after the playback enhancement: lint, architecture check, typecheck, 20 unit/integration tests, and production build pass.
+- Documented exception: Playwright reached its web server but no Linux Chrome was installed. The pinned browser CDN returned a regional HTTP 403, so the six browser journeys (including progressive intermediate-state coverage) remain implemented but unexecuted locally. CI's stable Chrome channel is unchanged.
 
 ## Limitations
 
