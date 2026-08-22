@@ -70,7 +70,7 @@ steps:
       - Progressive browser journey explains queue pressure and capacity trade-offs.
       - Phase gate passes or has an exact documented browser exception; phase commit exists.
   - id: S4
-    status: pending
+    status: completed
     purpose: Implement and commit Phase 5 single-flight request coalescing as a complete vertical teaching slice.
     depends_on: [S3]
     files_or_surface:

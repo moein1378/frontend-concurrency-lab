@@ -7,3 +7,5 @@ export { runMutualExclusionComparison, type MutualExclusionOptions } from './app
 export type { MutationExample, MutationOutcome, MutualExclusionComparison, MutualExclusionRun } from './domain/mutual-exclusion'
 export { runUploadComparison, type UploadOptions } from './application/run-upload-comparison'
 export type { UploadComparison, UploadRun } from './domain/bounded-concurrency'
+export { runSingleFlightComparison, type SingleFlightOptions } from './application/run-single-flight-comparison'
+export type { SingleFlightComparison, SingleFlightRun } from './domain/single-flight'

@@ -31,6 +31,14 @@ describe('phase 1 concurrency primitives', () => {
     expect([first, second, calls]).toEqual([1, 1, 1])
   })
 
+  it('isolates single-flight keys and permits retry after rejection or synchronous throw', async () => {
+    const registry = new SingleFlightRegistry(); let calls = 0
+    await expect(registry.run('profile:1', async () => { calls += 1; throw new Error('offline') })).rejects.toThrow('offline')
+    expect(await registry.run('profile:1', async () => ++calls)).toBe(2)
+    await expect(registry.run('profile:2', () => { throw new Error('sync') })).rejects.toThrow('sync')
+    expect(registry.activeKeys).toEqual([])
+  })
+
   it('serializes critical sections', async () => {
     const mutex = new Mutex()
     const order: string[] = []

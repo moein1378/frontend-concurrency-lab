@@ -12,7 +12,7 @@
 
 | Release | Reproducibility | Protected invariant |
 | --- | --- | --- |
-| **v0.4.0 · Phase 4** | Seeded local fixture; no network | Fresh search wins; one mutation owner; active uploads never exceed capacity |
+| **v0.5.0 · Phase 5** | Seeded local fixture; no network | Fresh search; exclusive mutations; bounded uploads; one producer per in-flight key |
 
 The complete interface and guided tours are available in **English and Persian (فارسی)**. Changing language updates content, accessibility metadata, and the full LTR/RTL layout immediately; the preference is retained in the browser.
 
