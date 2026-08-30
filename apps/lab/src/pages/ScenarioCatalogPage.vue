@@ -1,90 +1,47 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { startGuidedTour } from '../tours/create-tour'
-
-const comparisonUrl = `${import.meta.env.BASE_URL}scenario/search-race/compare`
-const mutexUrl = `${import.meta.env.BASE_URL}scenario/mutual-exclusion/compare`
-const uploadsUrl = `${import.meta.env.BASE_URL}scenario/bounded-concurrency/compare`
-const singleFlightUrl = `${import.meta.env.BASE_URL}scenario/single-flight/compare`
-const crossTabUrl = `${import.meta.env.BASE_URL}scenario/cross-tab/compare`
-const { locale, t } = useI18n()
-
-const learningLevels = [
-  { level: 'common.junior', text: 'catalog.juniorText', icon: '01' },
-  { level: 'common.mid', text: 'catalog.midText', icon: '02' },
-  { level: 'common.senior', text: 'catalog.seniorText', icon: '03' },
-]
-
-function startTour() {
-  startGuidedTour([
-    { element: '[data-tour="catalog-hero"]', title: t('catalog.tourWelcomeTitle'), intro: t('catalog.tourWelcome'), position: 'bottom' },
-    { element: '[data-tour="learning-method"]', title: t('catalog.tourMethodTitle'), intro: t('catalog.tourMethod'), position: 'bottom' },
-    { element: '[data-tour="scenario-card"]', title: t('catalog.tourCardTitle'), intro: t('catalog.tourCard'), position: 'top' },
-    { element: '[data-tour="scenario-action"]', title: t('catalog.tourActionTitle'), intro: t('catalog.tourAction'), position: 'top' },
-  ], {
-    next: t('tour.next'), previous: t('tour.previous'), done: t('tour.done'), close: t('tour.close'), progress: t('tour.progress'),
-  }, locale.value === 'fa')
+const base = import.meta.env.BASE_URL
+const scenarios = [
+  ['01', 'Stale search response', 'See an older response overwrite newer intent, then compare two protections against the stale write.', 'search-race'],
+  ['02', 'Double submit and mutex', 'Compare duplicate effects with queued ownership and reliable critical-section release.', 'mutual-exclusion'],
+  ['03', 'Bounded concurrency', 'Inspect queue pressure and active capacity under unbounded execution and a semaphore.', 'bounded-concurrency'],
+  ['04', 'Single-flight', 'Compare independent requests with one shared producer for each normalized key.', 'single-flight'],
+  ['05', 'Cross-tab ownership', 'Compare duplicate claims with deterministic election of one owning browser tab.', 'cross-tab'],
+] as const
+const outcomes: Record<string, readonly [string, string, string]> = {
+  'search-race': ['Frontend data fetching', 'You will understand', 'Why stale responses overwrite current intent, and how cancellation or freshness tokens stop it.'],
+  'mutual-exclusion': ['Sensitive mutations', 'You will understand', 'What a mutex serializes and why server idempotency is still required.'],
+  'bounded-concurrency': ['Uploads and batch work', 'You will understand', 'How capacity changes queue pressure, dependency load, and waiting time.'],
+  'single-flight': ['Duplicate API reads', 'You will understand', 'How one producer serves many subscribers without becoming a completed-value cache.'],
+  'cross-tab': ['Browser synchronization', 'You will understand', 'Why per-tab memory is insufficient and what shared ownership requires.'],
 }
-
-onMounted(() => window.addEventListener('lab:start-tour', startTour))
-onBeforeUnmount(() => window.removeEventListener('lab:start-tour', startTour))
 </script>
 
 <template>
-  <section class="catalog-hero" data-tour="catalog-hero">
-    <p class="eyebrow">{{ t('catalog.eyebrow') }}</p>
-    <h1>{{ t('catalog.titleA') }}<br /><span>{{ t('catalog.titleB') }}</span></h1>
-    <p>{{ t('catalog.intro') }}</p>
-    <div class="hero-actions">
-      <a class="primary-action" href="#catalog-title">{{ t('catalog.action') }} <span aria-hidden="true">↓</span></a>
-      <button class="secondary-action" type="button" @click="startTour"><span aria-hidden="true">?</span> {{ t('common.startTour') }}</button>
-    </div>
-  </section>
-
-  <section class="teaching-method" data-tour="learning-method" aria-labelledby="method-title">
-    <div class="method-intro">
-      <p class="kicker">{{ t('common.allLevels') }}</p>
-      <h2 id="method-title">{{ t('catalog.thesisTitle') }}</h2>
-      <p>{{ t('catalog.thesis') }}</p>
-    </div>
-    <ol class="method-steps">
-      <li><span>01</span><div><strong>{{ t('catalog.step1Title') }}</strong><p>{{ t('catalog.step1') }}</p></div></li>
-      <li><span>02</span><div><strong>{{ t('catalog.step2Title') }}</strong><p>{{ t('catalog.step2') }}</p></div></li>
-      <li><span>03</span><div><strong>{{ t('catalog.step3Title') }}</strong><p>{{ t('catalog.step3') }}</p></div></li>
-    </ol>
-  </section>
-
-  <section class="catalog" aria-labelledby="catalog-title">
-    <div class="section-heading">
-      <div><p class="kicker">{{ t('common.phase') }}</p><h2 id="catalog-title">{{ t('catalog.catalogTitle') }}</h2></div>
-      <span class="count-badge">{{ t('catalog.available') }}</span>
-    </div>
-    <article class="scenario-card" data-tour="scenario-card">
-      <div class="card-topline"><span class="comparison-badge">⇄ {{ t('catalog.compareBadge') }}</span><span class="scenario-number">{{ t('catalog.number') }}</span></div>
-      <h3>{{ t('catalog.scenarioTitle') }}</h3>
-      <p>{{ t('catalog.scenarioSummary') }}</p>
-      <dl>
-        <div><dt>{{ t('catalog.failureType') }}</dt><dd>{{ t('catalog.raceCondition') }}</dd></div>
-        <div><dt>{{ t('catalog.invariant') }}</dt><dd>{{ t('catalog.latestWins') }}</dd></div>
-        <div><dt>{{ t('catalog.runtime') }}</dt><dd>{{ t('catalog.deterministic') }}</dd></div>
-      </dl>
-      <div class="concept-preview"><strong>{{ t('catalog.concepts') }}</strong><p>{{ t('catalog.conceptList') }}</p></div>
-      <div class="card-action-row">
-        <span class="duration-label">◷ {{ t('catalog.duration') }}</span>
-        <a class="primary-action" data-tour="scenario-action" :href="comparisonUrl">{{ t('catalog.action') }} <span aria-hidden="true">→</span></a>
+  <div class="catalog-page">
+    <VContainer tag="section" class="catalog-hero page-rail">
+      <p class="eyebrow">Interactive concurrency lessons</p>
+      <h1>See the race. <span>Understand the guarantee.</span></h1>
+      <p>Reproduce a real frontend ordering bug, compare two correct protections, and read every state change on a deterministic timeline.</p>
+      <a class="primary-action" href="#catalog-title">Start the lesson ↓</a>
+    </VContainer>
+    <VContainer tag="section" class="learning-method page-rail">
+      <h2>Learn concurrency by changing the system</h2>
+      <p>Predict → run → inspect → explain</p>
+      <p>Each scenario makes a production-shaped failure visible, compares protections under identical inputs, and ends by asking you to explain the result.</p>
+    </VContainer>
+    <VContainer tag="section" class="catalog page-rail" aria-labelledby="catalog-title">
+      <div class="section-heading catalog-heading"><div><p class="kicker">Choose a real-world problem</p><h2 id="catalog-title">Scenario catalog</h2></div><p class="catalog-count">5 interactive lessons</p></div>
+      <div class="scenario-grid">
+        <VCard v-for="scenario in scenarios" :key="scenario[3]" tag="article" class="scenario-card" variant="outlined">
+          <img class="scenario-card-image" :src="`${base}scenarios/${scenario[3]}.png`" :alt="`${scenario[1]} concept illustration`" />
+          <div class="scenario-card-body">
+            <div class="card-topline"><span class="scenario-format">Predict · run · compare</span><span class="scenario-number">Lesson {{ scenario[0] }}</span></div>
+            <h3>{{ scenario[1] }}</h3><p>{{ scenario[2] }}</p><p class="scenario-domain">{{ outcomes[scenario[3]]?.[0] }}</p>
+            <div class="scenario-outcome"><strong>{{ outcomes[scenario[3]]?.[1] }}</strong><span>{{ outcomes[scenario[3]]?.[2] }}</span></div>
+            <div class="card-action-row"><RouterLink class="primary-action" :to="`/scenario/${scenario[3]}/compare`">Start the lesson →</RouterLink></div>
+          </div>
+        </VCard>
       </div>
-    </article>
-    <article class="scenario-card"><div class="card-topline"><span class="comparison-badge">⇄ {{ t('catalog.compareBadge') }}</span><span class="scenario-number">02</span></div><h3>{{ locale === 'fa' ? 'ارسال دوباره و mutex' : 'Double submit and mutex' }}</h3><p>{{ locale === 'fa' ? 'دو mutation هم‌پوشان را ببینید و آزادشدن مالکیت صفی پس از موفقیت، خطا، پایان مهلت یا لغو را دنبال کنید.' : 'See overlapping mutations create duplicate effects, then follow FIFO ownership release after success, failure, timeout, or cancellation.' }}</p><dl><div><dt>{{ t('catalog.failureType') }}</dt><dd>{{ locale === 'fa' ? 'اثر تکراری' : 'Duplicate effect' }}</dd></div><div><dt>{{ t('catalog.invariant') }}</dt><dd>{{ locale === 'fa' ? 'یک مالک بخش بحرانی' : 'One critical-section owner' }}</dd></div></dl><div class="card-action-row"><span class="duration-label">◷ 8–12 min</span><a class="primary-action" :href="mutexUrl">{{ t('catalog.action') }} <span aria-hidden="true">→</span></a></div></article>
-    <article class="scenario-card"><div class="card-topline"><span class="comparison-badge">⇄ {{ t('catalog.compareBadge') }}</span><span class="scenario-number">03</span></div><h3>{{ locale === 'fa' ? 'بارگذاری هم‌زمان محدود' : 'Bounded concurrent uploads' }}</h3><p>{{ locale === 'fa' ? 'فشار صف، permitهای فعال، زمان انتظار و لغو را روی ردیابی قطعی ببینید.' : 'Inspect queue pressure, active permits, waiting, and cancellation on a deterministic trace.' }}</p><div class="card-action-row"><span class="duration-label">◷ 8–12 min</span><a class="primary-action" :href="uploadsUrl">{{ t('catalog.action') }} →</a></div></article>
-    <article class="scenario-card"><div class="card-topline"><span class="comparison-badge">⇄ {{ t('catalog.compareBadge') }}</span><span class="scenario-number">04</span></div><h3>{{locale==='fa'?'تک‌پرواز و حذف تکرار':'Single-flight deduplication'}}</h3><p>{{locale==='fa'?'اشتراک یک producer، مالکیت لغو و تفاوت cache با کار در حال اجرا را ببینید.':'See one shared producer, cancellation ownership, and the difference between cache and in-flight work.'}}</p><div class="card-action-row"><span class="duration-label">◷ 8–12 min</span><a class="primary-action" :href="singleFlightUrl">{{t('catalog.action')}} →</a></div></article>
-    <article class="scenario-card"><div class="card-topline"><span class="comparison-badge">⇄ {{t('catalog.compareBadge')}}</span><span class="scenario-number">05</span></div><h3>{{locale==='fa'?'مالکیت job میان تب‌ها':'Cross-tab job ownership'}}</h3><p>{{locale==='fa'?'ادعای تکراری را با انتخاب قطعی یک مالک مقایسه کنید.':'Compare duplicate claims with deterministic single-owner election.'}}</p><div class="card-action-row"><span class="duration-label">◷ 6–10 min</span><a class="primary-action" :href="crossTabUrl">{{t('catalog.action')}} →</a></div></article>
-  </section>
-
-  <section class="learning-levels" aria-labelledby="levels-title">
-    <div class="section-heading"><div><p class="kicker">{{ t('common.level') }}</p><h2 id="levels-title">{{ t('catalog.levelTitle') }}</h2></div></div>
-    <div class="level-grid">
-      <article v-for="item in learningLevels" :key="item.level"><span>{{ item.icon }}</span><h3>{{ t(item.level) }}</h3><p>{{ t(item.text) }}</p></article>
-    </div>
-  </section>
+    </VContainer>
+  </div>
 </template>

@@ -1,1 +1,23 @@
-import{expect,test}from'@playwright/test';test('two real pages coordinate one shared job owner',async({context})=>{const first=await context.newPage();await first.goto('/scenario/cross-tab/compare?tab=A');await first.evaluate(()=>localStorage.clear());const second=await context.newPage();await second.goto('/scenario/cross-tab/compare?tab=B');await Promise.all([first.getByRole('button',{name:'Coordinate this tab'}).click(),second.getByRole('button',{name:'Coordinate this tab'}).click()]);const owner=await first.evaluate(()=>localStorage.getItem('concurrency-lab:fixture-job:owner:v1'));expect(['A','B']).toContain(owner);const ownerPage=owner==='A'?first:second;const followerPage=owner==='A'?second:first;await expect(ownerPage.getByText('This tab owns the job')).toBeVisible();await expect(followerPage.getByText(`Tab ${owner} owns the job; this tab is a follower`)).toBeVisible();await Promise.all([first.close(),second.close()])})
+import { expect, test } from '@playwright/test'
+
+test('two real pages coordinate one shared job owner without exposing machine IDs', async ({ context }) => {
+  const first = await context.newPage()
+  await first.goto('/scenario/cross-tab/compare?tab=A')
+  await first.evaluate(() => localStorage.clear())
+  const second = await context.newPage()
+  await second.goto('/scenario/cross-tab/compare?tab=B')
+
+  await Promise.all([
+    first.getByRole('button', { name: 'Coordinate this tab' }).click(),
+    second.getByRole('button', { name: 'Coordinate this tab' }).click(),
+  ])
+
+  const owner = await first.evaluate(() => localStorage.getItem('concurrency-lab:fixture-job:owner:v1'))
+  expect(['A', 'B']).toContain(owner)
+  const ownerPage = owner === 'A' ? first : second
+  const followerPage = owner === 'A' ? second : first
+  await expect(ownerPage.getByText('✓ This tab owns the job', { exact: true })).toBeVisible()
+  await expect(followerPage.getByText('Another tab owns the job · This tab is a follower', { exact: true })).toBeVisible()
+  await expect(followerPage.getByText(/Tab [A-B] owns/)).toHaveCount(0)
+  await Promise.all([first.close(), second.close()])
+})

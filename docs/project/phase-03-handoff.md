@@ -5,7 +5,7 @@
 - FIFO mutex acquisition with observable lock/queue state, idempotent release, cancellation-safe waiters, and `finally` release.
 - Deterministic payment and save-form broken/fixed comparisons.
 - Progressive queue, acquire, enter, outcome, release, commit/discard, and invariant evidence.
-- English/Persian teaching content, responsive single-column behavior, limitations, and decision guidance.
+- English teaching content, responsive single-column behavior, limitations, and decision guidance.
 - Unit, integration, and browser-critical reviewer coverage.
 
 ## Verification

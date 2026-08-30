@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.22.0",
-  "engines": { "node": ">=24 <25" },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "corepack pnpm --filter @concurrency-lab/app dev",
     "dev:all": "corepack pnpm dev",
     "seed": "node scripts/seed.mjs",
     "reset": "node scripts/reset.mjs",
     "codegen": "node scripts/codegen.mjs",
-    "lint": "eslint eslint.config.js scripts/*.mjs && node scripts/lint-source.mjs",
+    "lint": "eslint . && node scripts/lint-source.mjs",
     "architecture:check": "node scripts/check-architecture.mjs",
     "typecheck": "corepack pnpm --filter @concurrency-lab/app typecheck",
     "test": "vitest run",
@@ -22,10 +24,13 @@
     "verify": "corepack pnpm lint && corepack pnpm architecture:check && corepack pnpm typecheck && corepack pnpm test && corepack pnpm test:e2e && corepack pnpm build && corepack pnpm performance:check"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.1",
     "@eslint/js": "10.0.1",
+    "@playwright/test": "1.62.1",
     "eslint": "10.8.1",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.11.0",
     "typescript": "5.9.3",
+    "typescript-eslint": "^8.68.0",
     "vitest": "4.1.10"
   }
 }

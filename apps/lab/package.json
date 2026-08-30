@@ -12,14 +12,12 @@
     "@concurrency-lab/concurrency-core": "workspace:*",
     "@concurrency-lab/scenario-engine": "workspace:*",
     "@concurrency-lab/timeline": "workspace:*",
-    "@tailwindcss/vite": "4.3.3",
     "intro.js": "8.5.0",
-    "tailwindcss": "4.3.3",
     "vue": "3.5.41",
-    "vue-i18n": "11.1.12"
+    "vue-router": "^4.6.4",
+    "vuetify": "3.13.2"
   },
   "devDependencies": {
-    "@intlify/devtools-types": "11.1.12",
     "@vitejs/plugin-vue": "6.0.8",
     "typescript": "5.9.3",
     "vite": "8.2.1",

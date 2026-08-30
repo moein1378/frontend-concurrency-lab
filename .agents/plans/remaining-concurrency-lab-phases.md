@@ -6,7 +6,7 @@ updated_at: 2026-08-22
 baseline:
   git_commit: 1472d0390de903fb220b6fc8693c590796374045
   fingerprint: 0736716e43e9e70a1a139d44aba0e1d1ab2d149411d0626c95ddd0025f3e1c2a
-goal: Complete the remaining scenario-first concurrency teaching lab phases, preserving deterministic progressive evidence, bilingual accessibility, package boundaries, tests, documentation, and one verified commit per phase.
+goal: Complete the remaining scenario-first concurrency teaching lab phases, preserving deterministic progressive evidence, English accessibility, package boundaries, tests, documentation, and one verified commit per phase.
 non_goals:
   - Add Nuxt, SSR, external services, paid accounts, secrets, or real nondeterministic network timing.
   - Invent retry, timeout, caching, upload cancellation, or cross-tab browser API semantics not required by a scenario invariant.
@@ -23,7 +23,7 @@ acceptance_criteria:
   - id: A5
     statement: Phase 6 hardens the lab with keyboard-accessible timelines, responsive layouts, performance budgets, cross-browser coverage, architecture/failure documentation, and release-candidate delivery.
   - id: A6
-    statement: Every visitor-facing scenario is available in English and Persian, remains usable in RTL and phone layouts, and explains mental model, evidence, trade-offs, decision guidance, and limitations.
+    statement: Every visitor-facing scenario is available in English, remains usable in desktop and phone layouts, and explains mental model, evidence, trade-offs, decision guidance, and limitations.
   - id: A7
     statement: Each phase has focused unit/integration coverage, a browser-critical reviewer journey, updated phase brief/handoff documentation, and a phase commit after proportional verification.
   - id: A8
@@ -40,7 +40,7 @@ steps:
     purpose: Close the existing dirty Phase 2 teaching/playback work, fix reproduced defects, refresh context, verify, and commit it.
     depends_on: []
     files_or_surface:
-      - apps/lab search-race UI, playback, tokens, localization, and browser tests
+      - apps/lab search-race UI, playback, tokens, English copy, and browser tests
       - docs/adr, docs/project, .agents/context
     acceptance_refs: [A1, A6, A7]
     evidence:

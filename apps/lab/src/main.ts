@@ -1,6 +1,9 @@
 import { createApp } from 'vue'
 import App from './app/App.vue'
-import { i18n } from './i18n'
+import { vuetify } from './plugins/vuetify'
+import { router } from './router'
 import './styles/main.css'
 
-createApp(App).use(i18n).mount('#app')
+document.documentElement.lang = 'en'
+document.documentElement.dir = 'ltr'
+createApp(App).use(vuetify).use(router).mount('#app')

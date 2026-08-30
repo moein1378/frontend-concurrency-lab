@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | **v1.0.0 · Stable** | Seeded local fixture; no network | Six examples, frozen public contracts, downloadable keyboard-readable traces |
 
-The complete interface and guided tours are available in **English and Persian (فارسی)**. Changing language updates content, accessibility metadata, and the full LTR/RTL layout immediately; the preference is retained in the browser.
+The complete interface and guided tours are available in English.
 
 After revealing a scenario trace, use **Download visible trace** in the footer to save the structured evidence as local JSON. No trace is uploaded.
 
@@ -49,7 +49,7 @@ The [broken runner](./packages/scenario-engine/src/application/run-broken-search
 
 The UI progressively renders request, abort, response, commit, discard, and invariant events as structured text. Playback exposes virtual time, progress, pause/resume, replay, and speed controls, so learners can inspect intermediate results without depending on color or animation.
 
-Use **Guided tour** from the header or experiment panel for a localized Intro.js walkthrough. The scenario tour starts deterministic playback, then explains controls, strategies, intermediate outcomes, and the live timeline in context.
+Use **Guided lesson** from a scenario's learning panel for an Intro.js walkthrough. The lesson waits for real simulator interaction, then explains controls, strategies, intermediate outcomes, and the live timeline in context.
 
 ## Correct implementations
 

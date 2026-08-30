@@ -11,7 +11,7 @@ function run(variant: 'broken' | 'fixed', options: MutualExclusionOptions): Mutu
   clock.advanceBy(20)
   log.record('request', `Second ${label} submitted`, { attempt: 2 })
   let effects = 0
-  let peakCriticalSections = 0
+  let peakCriticalSections: number
 
   if (variant === 'broken') {
     log.record('enter', 'First attempt entered the critical section', { attempt: 1, active: 1 })

@@ -7,9 +7,9 @@
 - Extended the event model with abort and discard evidence.
 - Added the semaphore public primitive and strengthened latest-wins tests while retaining single-flight and mutex responsibilities.
 - Fixed CI setup ordering so pnpm exists before setup-node initializes its pnpm cache.
-- Added English/Persian localization, persistent language selection, full-document RTL/LTR direction, and localized dynamic timeline evidence.
+- Added English teaching copy and dynamic timeline evidence.
 - Expanded the catalog and stale-search scenario with learning outcomes, prerequisite and mental-model guidance, glossary, invariant explanation, trade-offs, decision guidance, experience-level takeaways, and limitations.
-- Replaced Driver.js with localized Intro.js tours for both the catalog and scenario workflow.
+- Replaced Driver.js with English Intro.js lessons for the scenario workflow.
 - Replaced atomic result rendering with deterministic progressive playback: each virtual-time frame reveals trace events and commit-driven visible results, with pause/resume, replay, speed, progress, and input locking.
 
 ## Decisions

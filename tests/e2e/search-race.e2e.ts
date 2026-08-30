@@ -1,9 +1,24 @@
 import { expect, test } from '@playwright/test'
 
+test('site remains English and left-to-right across navigation and reload', async ({ page }) => {
+  await page.goto('/scenarios')
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
+  await expect(page.getByLabel('Language')).toHaveCount(0)
+
+  await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Stale search response' }) }).getByRole('link', { name: /Start the lesson/ }).click()
+  await page.reload()
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
+  await expect(page.getByRole('heading', { name: 'Stale search response' })).toBeVisible()
+  await expect(page.getByLabel('Language')).toHaveCount(0)
+})
+
 test('reviewer compares broken search with propagated cancellation', async ({ page }) => {
   await page.goto('/scenarios')
   await expect(page.getByRole('heading', { name: 'Scenario catalog' })).toBeVisible()
-  await page.getByRole('link', { name: /Start the lesson/ }).click()
+  await page.getByRole('article').filter({ has: page.getByRole('heading', { name: 'Stale search response' }) }).getByRole('link', { name: /Start the lesson/ }).click()
   await expect(page).toHaveURL(/\/scenario\/search-race\/compare$/)
   await page.getByRole('button', { name: /Run live comparison/ }).click()
 
@@ -26,38 +41,12 @@ test('reviewer switches to freshness protection and sees a stale discard', async
 })
 
 test('in-order response mode remains a valid non-failing control', async ({ page }) => {
-  await page.goto('/scenario/search-race/broken')
+  await page.goto('/scenario/search-race/compare')
   await page.getByLabel('Response order').selectOption('in-order')
   await page.getByRole('button', { name: /Run live comparison/ }).click()
 
   await expect(page.getByRole('heading', { name: 'Broken · results for “cat”' })).toBeVisible()
   await expect(page.getByText('Invariant held')).toHaveCount(2)
-})
-
-test('learner switches to Persian and receives a complete RTL experience', async ({ page }) => {
-  await page.goto('/scenarios')
-  await page.getByLabel('Language').selectOption('fa')
-
-  await expect(page.locator('html')).toHaveAttribute('lang', 'fa')
-  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
-  await expect(page.getByRole('heading', { name: 'فهرست سناریوها' })).toBeVisible()
-  await page.getByRole('link', { name: /شروع درس/ }).click()
-  await expect(page.getByRole('heading', { name: 'پاسخ قدیمی جست‌وجو' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'اهداف یادگیری' })).toBeVisible()
-  await expect(page.getByLabel('ترتیب پاسخ')).toBeVisible()
-})
-
-test('guided tours explain both the catalog and scenario', async ({ page }) => {
-  await page.goto('/scenarios')
-  await page.locator('.catalog-hero').getByRole('button', { name: /Guided tour/ }).click()
-  await expect(page.getByText('Welcome to the lab')).toBeVisible()
-  await page.keyboard.press('Escape')
-
-  await page.goto('/scenario/search-race/compare')
-  await page.locator('.comparison-controls').getByRole('button', { name: /Guided tour/ }).click()
-  await expect(page.getByText('One controlled experiment')).toBeVisible()
-  await expect(page.getByRole('heading', { name: 'Broken · results for “ca”' })).toBeVisible()
-  await page.keyboard.press('Escape')
 })
 
 test('live playback exposes intermediate commits and supports inspection', async ({ page }) => {
@@ -79,6 +68,7 @@ test('timeline is keyboard inspectable in desktop and phone projects', async ({ 
   await page.goto('/scenario/search-race/compare')
   await page.getByRole('button', { name: /Run live comparison/ }).click()
   const timeline = page.getByRole('list', { name: /Event timeline/ }).first()
+  await expect(timeline.locator('li').first()).toBeVisible()
   await timeline.focus()
   await page.keyboard.press('ArrowDown')
   await expect(timeline.locator('li').first()).toBeFocused()
