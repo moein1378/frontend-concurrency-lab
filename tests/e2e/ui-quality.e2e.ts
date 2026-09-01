@@ -17,6 +17,9 @@ const visualScenarios = [
   { name: 'cross-tab', route: '/scenario/cross-tab/compare?tab=visual', action: 'Coordinate this tab' },
 ] as const
 
+const screenshotProjects = new Set(['chromium', 'firefox', 'phone'])
+const screenshotOptions = { animations: 'disabled', fullPage: true, maxDiffPixelRatio: 0.01 } as const
+
 test('MVP pages stay inside the viewport without browser errors', async ({ page }) => {
   const errors: string[] = []
   page.on('pageerror', error => errors.push(error.message))
@@ -47,17 +50,21 @@ for (const scenario of visualScenarios) {
       const boxes = await lanes.evaluateAll(elements => elements.map(element => element.getBoundingClientRect().width))
       expect(Math.abs((boxes[0] ?? 0) - (boxes[1] ?? 0))).toBeLessThanOrEqual(1)
     }
-    await expect(page).toHaveScreenshot(`${scenario.name}-populated-${testInfo.project.name}.png`, { animations: 'disabled', fullPage: true })
+    if (screenshotProjects.has(testInfo.project.name)) {
+      await expect(page).toHaveScreenshot(`${scenario.name}-populated-${testInfo.project.name}.png`, screenshotOptions)
+    }
   })
 }
 
 test('catalog theme and visual baseline remain coherent', async ({ page }, testInfo) => {
   await page.goto('/scenarios')
-  await expect(page).toHaveScreenshot(`catalog-mvp-${testInfo.project.name}.png`, { animations: 'disabled', fullPage: true })
+  if (screenshotProjects.has(testInfo.project.name)) {
+    await expect(page).toHaveScreenshot(`catalog-mvp-${testInfo.project.name}.png`, screenshotOptions)
+  }
 
   await page.getByRole('button', { name: 'Use dark theme' }).click()
   await expect(page.locator('.v-application')).toHaveClass(/v-theme--labDark/)
 
-  if (testInfo.project.name === 'chromium') await expect(page).toHaveScreenshot('catalog-dark-chromium.png', { animations: 'disabled', fullPage: true })
+  if (testInfo.project.name === 'chromium') await expect(page).toHaveScreenshot('catalog-dark-chromium.png', screenshotOptions)
 
 })

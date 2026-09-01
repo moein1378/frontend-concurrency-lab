@@ -11,7 +11,7 @@ test('site remains English and left-to-right across navigation and reload', asyn
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
-  await expect(page.getByRole('heading', { name: 'Stale search response' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Keep stale search results off the screen' })).toBeVisible()
   await expect(page.getByLabel('Language')).toHaveCount(0)
 })
 

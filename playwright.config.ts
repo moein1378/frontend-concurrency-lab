@@ -1,6 +1,5 @@
 import { defineConfig, devices } from '@playwright/test'
 
-const browserChannel = process.env.PLAYWRIGHT_BROWSER_CHANNEL === 'bundled' ? undefined : 'chrome'
 const executablePath = process.env.PLAYWRIGHT_EXECUTABLE_PATH
 
 export default defineConfig({
@@ -16,7 +15,7 @@ export default defineConfig({
     reuseExistingServer: false,
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'], channel: executablePath || process.env.CI ? undefined : browserChannel, launchOptions: executablePath ? { executablePath } : undefined } },
+    { name: 'chromium', use: { ...devices['Desktop Chrome'], launchOptions: executablePath ? { executablePath } : undefined } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
     { name: 'phone', use: { ...devices['Pixel 7'], launchOptions: executablePath ? { executablePath } : undefined } },
