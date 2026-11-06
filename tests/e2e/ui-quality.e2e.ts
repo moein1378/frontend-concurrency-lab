@@ -28,6 +28,9 @@ test('MVP pages stay inside the viewport without browser errors', async ({ page 
   for (const route of scenarioRoutes) {
     await page.goto(route)
     await expect(page.locator('h1')).toBeVisible()
+    const header = page.getByRole('banner')
+    await expect(header.getByRole('navigation')).toHaveCount(0)
+    await expect(header.getByRole('button', { name: /Use (dark|light) theme/ })).toHaveText(/^[☾☀]$/)
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)
     expect(overflow, `${route} has horizontal overflow`).toBeLessThanOrEqual(1)
   }
@@ -64,7 +67,10 @@ test('catalog theme and visual baseline remain coherent', async ({ page }, testI
 
   await page.getByRole('button', { name: 'Use dark theme' }).click()
   await expect(page.locator('.v-application')).toHaveClass(/v-theme--labDark/)
+  await expect(page.getByRole('banner').getByRole('button', { name: 'Use light theme' })).toHaveText('☀')
 
   if (testInfo.project.name === 'chromium') await expect(page).toHaveScreenshot('catalog-dark-chromium.png', screenshotOptions)
-
+  await page.getByRole('button', { name: 'Use light theme' }).click()
+  await expect(page.locator('.v-application')).toHaveClass(/v-theme--labLight/)
+  await expect(page.getByRole('banner').getByRole('button', { name: 'Use dark theme' })).toHaveText('☾')
 })

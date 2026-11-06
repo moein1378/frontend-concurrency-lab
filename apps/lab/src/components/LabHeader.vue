@@ -29,13 +29,9 @@ function toggleTheme() {
       <img :src="faviconUrl" width="34" height="34" alt="" />
       <span>Concurrency Lab</span>
     </RouterLink>
-    <nav aria-label="Primary navigation">
-      <RouterLink to="/scenarios">Scenarios</RouterLink>
-    </nav>
     <div class="header-actions">
       <button class="icon-button" type="button" :aria-label="dark ? 'Use light theme' : 'Use dark theme'" @click="toggleTheme">
         <span aria-hidden="true">{{ dark ? '☀' : '☾' }}</span>
-        <span>{{ dark ? 'Light theme' : 'Dark theme' }}</span>
       </button>
     </div>
   </div></header>
