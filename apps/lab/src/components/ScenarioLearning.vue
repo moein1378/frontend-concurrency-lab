@@ -2,11 +2,13 @@
 import { computed, ref } from 'vue'
 import introJs from 'intro.js'
 import 'intro.js/introjs.css'
-import 'intro.js/themes/introjs-modern.css'
+import { useTheme } from 'vuetify'
+import '../styles/tour.css'
 
 type ScenarioId = 'search-race' | 'mutual-exclusion' | 'bounded-concurrency' | 'single-flight' | 'cross-tab'
 const props = defineProps<{ scenario: ScenarioId }>()
 const toured = ref(false)
+const theme = useTheme()
 const lessons = {
   'search-race': { problem: 'A user types “ca” and then “cat”. The older request can finish last and replace the result for the newer intent.', naive: 'Commit every response as it arrives. This fails because completion order is not request order.', simple: 'Freshness protection lets only the response that still represents the user’s latest intent update the screen.', world: 'Product search: a keystroke starts a request; the search API responds; cancellation or a sequence token decides whether the response may commit.', flow: 'Request → response → commit decision → visible result', terms: [['Race condition', 'The result depends on unpredictable completion order.'], ['Stale response', 'A valid response for an intent that is no longer current.'], ['AbortSignal', 'A cancellation signal propagated to work that is no longer useful.'], ['Freshness token', 'A sequence value used to reject an older response at commit time.']], advantage: 'Prevents old data from replacing the user’s current intent.', cost: 'Cancellation must propagate; token guards still spend network and server work.', use: 'Autocomplete, route-driven fetching, or fast-changing read intent.', avoid: 'Independent requests whose results can safely coexist.', questions: ['Why can the first request finish last?', 'Where must freshness be checked?', 'What work does a token guard not save?'] },
   'mutual-exclusion': { problem: 'Two fast submits enter the same mutation before the first one finishes, producing duplicate effects.', naive: 'Disable a button and assume one JavaScript thread means no overlap. Await points still allow another task to enter.', simple: 'A mutex gives one local task at a time permission to cross a critical section.', world: 'Checkout: clicks become payment attempts; the mutex serializes local entry; a server idempotency key protects the remote charge.', flow: 'Intent → acquire → critical work → release → next waiter', terms: [['Critical section', 'Code that must not be owned by overlapping tasks.'], ['Mutex', 'A one-owner coordination primitive.'], ['FIFO', 'Waiters acquire in arrival order.'], ['Idempotency', 'Repeating an operation has no additional effect.']], advantage: 'Makes local ownership and ordering explicit.', cost: 'Adds waiting and cannot guarantee a remote exactly-once effect.', use: 'Overlapping local mutations of one protected resource.', avoid: 'Independent work or remote deduplication by itself.', questions: ['Why can async work overlap on one thread?', 'Why release in finally?', 'What does server idempotency add?'] },
@@ -62,7 +64,7 @@ const tourLesson = computed(() => ({
   'cross-tab': ['Imagine two messaging tabs both starting one sync job. Predict the duplicate effect.', 'Inspect this tab ID: it is a contender, not automatically the owner.', 'Coordinate the tab and follow claim → election → owner or follower.', 'Compare independent claims with shared ownership, then explain why production also needs leases.'],
 })[props.scenario])
 const labels = computed(() => ({ problem: 'First, feel the problem', naive: 'Why the naive approach fails', simple: 'The concept, in plain language', world: 'Production mapping', terms: 'Terms you can inspect', trade: 'Trade-offs and decisions', advantage: 'Advantage', cost: 'Cost', use: 'Use it when', avoid: 'Avoid it when', check: 'Can you explain it?', start: toured.value ? 'Restart guided lesson' : 'Start guided lesson' }))
-function startTour() { toured.value = true; const tour = introJs.tour().setOptions({ showProgress: true, showBullets: false, nextLabel: 'Next', prevLabel: 'Back', doneLabel: 'Done', skipLabel: 'Skip', steps: [
+function startTour() { toured.value = true; const tour = introJs.tour().setOptions({ tooltipClass: `lab-tour v-theme--${theme.global.name.value}`, showStepNumbers: true, showProgress: true, showBullets: false, nextLabel: 'Next', prevLabel: 'Back', doneLabel: 'Done', skipLabel: 'Skip', steps: [
   { element: '.problem-block', intro: `Make a prediction. ${tourLesson.value[0]}` },
   { element: '.comparison-controls', intro: tourLesson.value[1] },
   { element: '.comparison-controls .primary-action', intro: `${tourLesson.value[2]} This highlighted control runs the real comparison; use it after the tour and inspect the result.` },

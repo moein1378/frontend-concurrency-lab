@@ -83,15 +83,25 @@ test('a scenario teaches a progressive mental model around the simulator', async
   await expect(page.getByText('Request → response → commit decision → visible result')).toBeVisible()
 })
 
-test('guided tour teaches an interaction and can be restarted or skipped', async ({ page }) => {
+test('guided tour teaches an interaction and can be restarted, skipped, or completed', async ({ page }) => {
   await page.goto('/scenario/search-race/compare')
   await page.getByRole('button', { name: 'Start guided lesson' }).click()
 
   await expect(page.locator('.introjs-tooltip')).toContainText('Make a prediction')
   await expect(page.getByRole('button', { name: /Skip/ })).toBeVisible()
   await expect(page.getByRole('button', { name: /Next/ })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Next', exact: true })).toHaveCSS('font-size', '0px')
+  await page.getByRole('button', { name: 'Next', exact: true }).click()
+  await page.getByRole('button', { name: 'Back', exact: true }).click()
+  await expect(page.locator('.introjs-tooltip')).toContainText('Make a prediction')
   await page.getByRole('button', { name: /Skip/ }).click()
+  await expect(page.locator('.introjs-tooltip')).toHaveCount(0)
   await expect(page.getByRole('button', { name: 'Restart guided lesson' })).toBeVisible()
+  await page.getByRole('button', { name: 'Restart guided lesson' }).click()
+  for (let step = 0; step < 5; step++) await page.getByRole('button', { name: 'Next', exact: true }).click()
+  await page.getByRole('button', { name: 'Done', exact: true }).click()
+  await expect(page.locator('.introjs-tooltip')).toHaveCount(0)
+  await expect(page.locator('.introjs-overlay')).toHaveCount(0)
 })
 
 test('guided lesson uses an opaque theme surface in light and dark modes', async ({ page }) => {
@@ -105,7 +115,7 @@ test('guided lesson uses an opaque theme surface in light and dark modes', async
       const style = getComputedStyle(element)
       return { background: style.backgroundColor, color: style.color, overflow: element.scrollWidth - element.clientWidth }
     })
-    expect(visual.background).not.toBe('rgba(0, 0, 0, 0)')
+    expect(visual.background).toMatch(/^rgb\(/)
     expect(visual.background).not.toBe('transparent')
     expect(visual.color).not.toBe(visual.background)
     expect(visual.overflow).toBeLessThanOrEqual(2)
