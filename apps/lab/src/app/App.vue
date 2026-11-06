@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { version } from '../../package.json'
 import LabHeader from '../components/LabHeader.vue'
 
 const route = useRoute()
@@ -38,6 +39,6 @@ onBeforeUnmount(() => document.removeEventListener('keydown', navigateTimeline))
     <v-main id="main">
       <RouterView />
     </v-main>
-    <v-footer class="app-footer"><span>Frontend Concurrency Lab</span><button class="trace-download" type="button" @click="downloadVisibleTrace">Download visible trace</button><span>Interactive lessons · v1.0.0</span></v-footer>
+    <v-footer class="app-footer"><span>Frontend Concurrency Lab</span><button class="trace-download" type="button" @click="downloadVisibleTrace">Download visible trace</button><span>Interactive lessons · v{{ version }}</span></v-footer>
   </v-app>
 </template>

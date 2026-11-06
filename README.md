@@ -12,7 +12,7 @@
 
 | Release | Reproducibility | Protected invariant |
 | --- | --- | --- |
-| **v1.0.0 · Stable** | Seeded local fixture; no network | Six examples, frozen public contracts, downloadable keyboard-readable traces |
+| **v1.1.0 · Stable** | Seeded local fixture; no network | Six examples, frozen public contracts, downloadable keyboard-readable traces |
 
 The complete interface and guided tours are available in English.
 
