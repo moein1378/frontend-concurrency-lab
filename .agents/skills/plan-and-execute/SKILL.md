@@ -1,6 +1,6 @@
 ---
 name: plan-and-execute
-description: Create, validate, execute, and resume a self-contained implementation plan with acceptance criteria, dependencies, risk, baseline fingerprint, per-step evidence, and drift detection. Use when the user asks to plan first, save a plan, or resume work across sessions.
+description: Create, validate, execute, and resume a persisted implementation plan with acceptance criteria, dependencies, risk, baseline fingerprint, per-step evidence, and drift detection. Use automatically for phased or multi-session work that needs a durable plan artifact under .agents/plans, or when resuming an existing repository plan. Do not use for ordinary single-session planning; use the generic planning workflow instead.
 ---
 
 # Plan and Execute

@@ -25,6 +25,21 @@ const candidates = [
   'playwright.config.ts',
   'playwright.config.js',
   'tsconfig.json',
+  'apps/lab/package.json',
+  'apps/lab/vite.config.ts',
+  'apps/lab/tsconfig.json',
+  'apps/lab/src/main.ts',
+  'apps/lab/src/router.ts',
+  'apps/lab/src/router/index.ts',
+  'apps/lab/src/plugins/vuetify.ts',
+  'apps/lab/src/styles/main.css',
+  'packages/concurrency-core/package.json',
+  'packages/scenario-engine/package.json',
+  'packages/timeline/package.json',
+  'docs/architecture/module-boundaries.md',
+  'scripts/check-bundle-budget.mjs',
+  '.github/workflows/ci.yml',
+  '.github/workflows/deploy-demo.yml',
 ]
 
 function sha256(file) {
@@ -86,7 +101,6 @@ const payload = {
 }
 
 const stable = JSON.stringify({
-  git_commit: payload.git_commit,
   package_manager: payload.package_manager,
   versions: payload.versions,
   files: payload.files,

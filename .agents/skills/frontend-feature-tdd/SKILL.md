@@ -1,6 +1,6 @@
 ---
 name: frontend-feature-tdd
-description: Implement a new Vue/Nuxt feature through behavior-driven Red-Green-Refactor slices, using explicit acceptance criteria, the cheapest sufficient test boundary, and continuous verification. Use when the user explicitly wants TDD/test-first development.
+description: Implement non-trivial Vue/Nuxt frontend features through behavior-driven Red-Green-Refactor slices using explicit acceptance criteria, the cheapest sufficient test boundary, and continuous verification. Trigger automatically for feature work with meaningful state, async/data flow, user interaction, business behavior, or regression risk. Do not trigger for documentation-only, configuration-only, or trivial visual-only changes.
 ---
 
 # Frontend Feature TDD
