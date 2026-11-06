@@ -1,7 +1,7 @@
 ---
-generated_at: "2026-10-18T19:06:20.213Z"
-verified_commit: "21afd88c6703f2d594629eaf9d34c1fde0f891cf"
-fingerprint: "382899e8d3899ded33aa3ee08e48defd85b769002ccb030b086c522c380c429a"
+generated_at: "2026-11-06T10:08:48.730Z"
+verified_commit: "8b8be1ca66154fc9d693ce26adade200f05385c8"
+fingerprint: "7397424d4769ae0da6b732c9ed2c7233700b7d0389da00bf082a7afc5460cd83"
 repo:
   type: monorepo
   package_manager: pnpm@11.22.0
@@ -65,6 +65,7 @@ quality:
     - Vitest 4.1.10 runs package unit tests and root integration/public-contract tests configured by vitest.config.ts.
     - Playwright 1.62.1 runs Chromium, Firefox, WebKit, and Pixel 7 projects against an isolated Vite server on port 4174, retaining traces on failure.
     - Browser suites cover every scenario plus learning behavior and UI quality; deterministic suites cover coordination invariants and public exports.
+    - Screenshot comparisons require VISUAL_REGRESSION=1 and use ignored local baselines; default functional browser tests do not require screenshot files.
   ci:
     - .github/workflows/ci.yml installs Chromium, Firefox, and WebKit, runs pnpm verify, performs pull-request dependency review, and uploads apps/lab/dist.
     - .github/workflows/deploy-demo.yml builds with the Pages base path after successful main CI, deploys apps/lab/dist, and smoke-tests the search-race route.

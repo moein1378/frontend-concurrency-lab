@@ -74,6 +74,13 @@ The comparison is orchestrated by [run-search-race-comparison.ts](./packages/sce
 - Playwright covers cancellation, freshness discard, and the non-failing in-order control.
 - `pnpm verify` runs lint, architecture boundaries, type checks, unit/integration tests, browser tests, and the production build.
 
+Test screenshots, reports, traces, coverage, and caches stay local and are ignored by Git. Browser tests run their functional assertions without screenshot baselines by default. To use optional local screenshot comparisons, generate baselines once and then compare against them:
+
+```bash
+VISUAL_REGRESSION=1 pnpm test:e2e tests/e2e/ui-quality.e2e.ts --project=chromium --update-snapshots=all
+VISUAL_REGRESSION=1 pnpm test:e2e tests/e2e/ui-quality.e2e.ts --project=chromium
+```
+
 ## Trade-offs
 
 - Cancellation avoids unnecessary completion work but requires AbortSignal support through every async layer.

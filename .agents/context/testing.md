@@ -1,9 +1,9 @@
 # Testing Context
 
 ```yaml
-generated_at: "2026-10-18T19:06:20.213Z"
-verified_commit: "21afd88c6703f2d594629eaf9d34c1fde0f891cf"
-fingerprint: "382899e8d3899ded33aa3ee08e48defd85b769002ccb030b086c522c380c429a"
+generated_at: "2026-11-06T10:08:48.730Z"
+verified_commit: "8b8be1ca66154fc9d693ce26adade200f05385c8"
+fingerprint: "7397424d4769ae0da6b732c9ed2c7233700b7d0389da00bf082a7afc5460cd83"
 package_scope: "pnpm workspace root; apps/lab; packages/*"
 package_manager: "pnpm@11.22.0"
 node: ">=24 <25 (.nvmrc: 24)"
@@ -31,7 +31,7 @@ libraries:
   nuxt_test_utils: null
   playwright: "@playwright/test 1.62.1"
   accessibility: "No dedicated accessibility package; E2E assertions cover selected keyboard, language, direction, and viewport behavior"
-  visual_regression: "Playwright toHaveScreenshot baselines in tests/e2e/ui-quality.e2e.ts-snapshots; maxDiffPixelRatio 0.01, animations disabled, full-page screenshots"
+  visual_regression: "Opt-in with VISUAL_REGRESSION=1; ignored local Playwright baselines in tests/e2e/ui-quality.e2e.ts-snapshots; maxDiffPixelRatio 0.01, animations disabled, full-page screenshots. Default functional tests need no baselines."
 coverage:
   enabled: false
   provider: null
@@ -97,4 +97,5 @@ Regenerate this snapshot when any listed config file, dependency version, test e
 - Jest and Cypress are not configured.
 - Vitest coverage is explicitly disabled; no coverage provider or thresholds are configured.
 - The lockfile mentions Vitest's optional browser, coverage, jsdom, and happy-dom peers as package metadata, but the repository does not declare or configure those capabilities.
-- Visual regression is intentionally narrower than the browser matrix: screenshot assertions run for Chromium, Firefox, and phone, while WebKit still runs the surrounding functional E2E tests.
+- Visual regression is local and opt-in through `VISUAL_REGRESSION=1`. Screenshot assertions run for Chromium, Firefox, and phone; default runs and WebKit retain functional assertions without requiring baselines. See README.md for baseline generation and comparison commands.
+- Generated test screenshots, reports, traces, coverage, logs, and caches are ignored by Git; application images remain versioned.

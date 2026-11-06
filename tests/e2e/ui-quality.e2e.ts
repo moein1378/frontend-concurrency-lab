@@ -17,7 +17,8 @@ const visualScenarios = [
   { name: 'cross-tab', route: '/scenario/cross-tab/compare?tab=visual', action: 'Coordinate this tab' },
 ] as const
 
-const screenshotProjects = new Set(['chromium', 'firefox', 'phone'])
+// Baselines stay local; fresh checkouts run functional assertions by default.
+const screenshotProjects = new Set(process.env.VISUAL_REGRESSION === '1' ? ['chromium', 'firefox', 'phone'] : [])
 const screenshotOptions = { animations: 'disabled', fullPage: true, maxDiffPixelRatio: 0.01 } as const
 
 test('MVP pages stay inside the viewport without browser errors', async ({ page }) => {
@@ -69,7 +70,7 @@ test('catalog theme and visual baseline remain coherent', async ({ page }, testI
   await expect(page.locator('.v-application')).toHaveClass(/v-theme--labDark/)
   await expect(page.getByRole('banner').getByRole('button', { name: 'Use light theme' })).toHaveText('☀')
 
-  if (testInfo.project.name === 'chromium') await expect(page).toHaveScreenshot('catalog-dark-chromium.png', screenshotOptions)
+  if (screenshotProjects.has(testInfo.project.name) && testInfo.project.name === 'chromium') await expect(page).toHaveScreenshot('catalog-dark-chromium.png', screenshotOptions)
   await page.getByRole('button', { name: 'Use light theme' }).click()
   await expect(page.locator('.v-application')).toHaveClass(/v-theme--labLight/)
   await expect(page.getByRole('banner').getByRole('button', { name: 'Use dark theme' })).toHaveText('☾')
